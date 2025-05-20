@@ -5,6 +5,8 @@ import { type Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { Provider as JotaiProvider } from 'jotai';
+// Components
+import Footer from '@/app/_components/ui/footer';
 
 export const metadata: Metadata = {
   title: 'Next.js Boilerplate',
@@ -26,10 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <div className="min-h-screen">
               <header>{/* <Navbar /> */}</header>
               <main>{children}</main>
-              <footer>
-                {/* <ThemeButton />
-                  <Message /> */}
-              </footer>
+              <Footer />
             </div>
           </JotaiProvider>
         </ThemeProvider>
