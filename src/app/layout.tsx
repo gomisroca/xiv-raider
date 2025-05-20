@@ -1,10 +1,9 @@
 import '@/styles/globals.css';
 
+// Libraries
 import { type Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
-
 import { ThemeProvider } from 'next-themes';
-import { TRPCReactProvider } from '@/trpc/react';
 import { Provider as JotaiProvider } from 'jotai';
 
 export const metadata: Metadata = {
@@ -24,16 +23,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
         <ThemeProvider attribute="class">
           <JotaiProvider>
-            <TRPCReactProvider>
-              <div className="min-h-screen">
-                <header>{/* <Navbar /> */}</header>
-                <main>{children}</main>
-                <footer>
-                  {/* <ThemeButton />
+            <div className="min-h-screen">
+              <header>{/* <Navbar /> */}</header>
+              <main>{children}</main>
+              <footer>
+                {/* <ThemeButton />
                   <Message /> */}
-                </footer>
-              </div>
-            </TRPCReactProvider>
+              </footer>
+            </div>
           </JotaiProvider>
         </ThemeProvider>
       </body>
