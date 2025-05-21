@@ -6,6 +6,7 @@ import { Work_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { Provider as JotaiProvider } from 'jotai';
 // Components
+import Navbar from '@/app/_components/ui/navbar';
 import Footer from '@/app/_components/ui/footer';
 
 export const metadata: Metadata = {
@@ -22,11 +23,13 @@ const worksans = Work_Sans({
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={worksans.className} suppressHydrationWarning>
-      <body className="bg-neutral-200 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+      <body className="bg-zinc-50 text-zinc-800 dark:bg-neutral-950 dark:text-zinc-200">
         <ThemeProvider attribute="class">
           <JotaiProvider>
             <div className="min-h-screen">
-              <header>{/* <Navbar /> */}</header>
+              <header>
+                <Navbar />
+              </header>
               <main>{children}</main>
               <Footer />
             </div>
