@@ -4,21 +4,9 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider  = "postgresql"
     url       = env("DATABASE_URL")
     directUrl = env("DIRECT_URL")
-}
-
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
 }
 
 // Necessary for Next auth
@@ -50,14 +38,16 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String      @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?     @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    characters    Character[]
+    ownedGroups   Group[]     @relation("OwnedGroups")
+    groups        Group[]     @relation("GroupMembers")
 }
 
 model VerificationToken {
@@ -66,4 +56,65 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Group {
+    id        String   @id @default(cuid())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    createdBy   User   @relation("OwnedGroups", fields: [createdById], references: [id], onDelete: Cascade)
+    createdById String
+
+    members    User[]      @relation("GroupMembers")
+    characters Character[]
+
+    @@index([name])
+}
+
+enum GearStatus {
+    BiS
+    NeedsTomestone
+    NeedsRaidDrop
+}
+
+enum GearSlot {
+    Weapon
+    Head
+    Body
+    Gloves
+    Legs
+    Feet
+    Earrings
+    Necklace
+    Bracelet
+    Ring1
+    Ring2
+}
+
+model GearPiece {
+    id          String     @id @default(cuid())
+    type        GearSlot
+    status      GearStatus
+    character   Character  @relation(fields: [characterId], references: [id])
+    characterId String
+}
+
+model Character {
+    id        String   @id @default(cuid())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId String
+
+    group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    groupId String
+
+    gear GearPiece[]
+
+    @@unique([name, groupId, ownerId])
+    @@index([name])
 }
