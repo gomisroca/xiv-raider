@@ -37,7 +37,6 @@
     "@auth/prisma-adapter": "^2.7.2",
     "@formkit/auto-animate": "^0.8.2",
     "@prisma/client": "^6.3.0",
-    "@supabase/supabase-js": "^2.48.1",
     "@t3-oss/env-nextjs": "^0.13.4",
     "husky": "^9.1.7",
     "jotai": "^2.11.1",

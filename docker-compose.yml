@@ -5,8 +5,6 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - SUPABASE_PROJECT_URL=${SUPABASE_PROJECT_URL}
-        - IMAGE_PROXY_HOSTNAME=${IMAGE_PROXY_HOSTNAME}
         - BASE_URL=${BASE_URL}
         - NEXTAUTH_URL=${NEXTAUTH_URL}
     working_dir: /app
