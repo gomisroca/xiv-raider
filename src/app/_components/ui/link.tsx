@@ -35,7 +35,7 @@ function Link({ href, children, className }: Props) {
       <NextLink
         href={href}
         className={twMerge(
-          'dark:text- flex h-[36px] cursor-pointer items-center justify-center rounded-lg bg-sky-500 p-2 text-zinc-50 transition duration-200 ease-in-out hover:animate-[pulse-scale_1.5s_ease-in-out_infinite] active:scale-90 active:rotate-[-1deg] active:animate-none active:shadow-lg dark:bg-sky-600 dark:text-zinc-200',
+          'dark:text- flex h-[36px] cursor-pointer items-center justify-center rounded-lg bg-sky-500 p-2 text-zinc-50 transition duration-200 ease-in-out *:pointer-events-none *:opacity-80 hover:animate-[pulse-scale_1.5s_ease-in-out_infinite] hover:*:opacity-100 active:scale-90 active:rotate-[-1deg] active:animate-none active:shadow-lg dark:bg-sky-600 dark:text-zinc-200',
           className
         )}>
         {children}
