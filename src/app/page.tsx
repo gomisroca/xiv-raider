@@ -1,21 +1,30 @@
 import { auth } from '@/server/auth';
 import Link from '@/app/_components/ui/link';
 import CreateButton from './create-button';
+import { type Group } from 'generated/prisma';
+
+function GroupLink({ group }: { group: Group }) {
+  return (
+    <Link key={group.id} href={`/group/${group.id}`} className="h-20 w-70 text-xl font-semibold uppercase">
+      {group.name}
+    </Link>
+  );
+}
 
 export default async function Home() {
   const session = await auth();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
+    <>
       {session && session.user.groups.length > 0 ? (
-        session.user.groups.map((group) => (
-          <Link key={group.id} href={`/group/${group.id}`}>
-            {group.name}
-          </Link>
-        ))
+        <div className="flex flex-wrap gap-2">
+          {session.user.groups.map((group) => (
+            <GroupLink key={group.id} group={group} />
+          ))}
+        </div>
       ) : (
         <CreateButton session={session} />
       )}
-    </main>
+    </>
   );
 }
