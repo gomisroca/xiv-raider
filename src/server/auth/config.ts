@@ -4,6 +4,7 @@ import DiscordProvider from 'next-auth/providers/discord';
 
 import { db } from '@/server/db';
 import { env } from '@/env';
+import { type Character, type Group } from 'generated/prisma';
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -15,8 +16,9 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      characters: Character[];
+      ownedGroups: Group[];
+      groups: Group[];
     } & DefaultSession['user'];
   }
 
@@ -40,12 +42,31 @@ export const authConfig = {
   ],
   adapter: PrismaAdapter(db),
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    async session({ session, user }) {
+      if (!user?.id) return session;
+
+      // Fetch user with related data
+      const dbUser = await db.user.findUnique({
+        where: { id: user.id },
+        include: {
+          characters: true,
+          ownedGroups: true,
+          groups: true,
+        },
+      });
+
+      if (!dbUser) return session;
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: dbUser.id,
+          characters: dbUser.characters,
+          ownedGroups: dbUser.ownedGroups,
+          groups: dbUser.groups,
+        },
+      };
+    },
   },
 } satisfies NextAuthConfig;
