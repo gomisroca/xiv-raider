@@ -67,10 +67,20 @@ model Group {
     createdBy   User   @relation("OwnedGroups", fields: [createdById], references: [id], onDelete: Cascade)
     createdById String
 
-    members    User[]      @relation("GroupMembers")
+    members    User[]        @relation("GroupMembers")
     characters Character[]
+    tokens     InviteToken[]
 
     @@index([name])
+}
+
+model InviteToken {
+    id      String @id @default(cuid())
+    group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    groupId String
+    uses    Int    @default(10)
+
+    createdAt DateTime @default(now())
 }
 
 enum GearStatus {
