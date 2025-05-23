@@ -16,6 +16,8 @@ export default async function InvitePage({
   if (!session) return <NotAllowed />;
 
   const tokenData = await getToken(code);
+  if (!tokenData) return <p>The invite code is invalid or has expired.</p>;
+
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <p>
