@@ -8,9 +8,9 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { createCharacter } from '@/actions/characters';
-import { GearSlotIcons, GearSlots, type GearStatus, GearStatuses, GearStatusLabels } from '@/utils/enums';
+import { GearSlotIcons, GearSlots, type GearStatus, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
 import { useParams } from 'next/navigation';
-import { GearSlot } from 'generated/prisma';
+import { GearSlot, type Job } from 'generated/prisma';
 
 export default function CreateCharacterForm({ modal = false }: { modal?: boolean }) {
   const params = useParams<{ groupId: string }>();
@@ -27,6 +27,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
       const data = {
         groupId,
         name: formData.get('name') as string,
+        job: formData.get('job') as Job,
         gearPieces: Object.values(GearSlot).map((slot) => ({
           type: slot as GearSlot,
           status: formData.get(slot) as GearStatus,
@@ -64,6 +65,15 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
         placeholder="My New Character"
         required
       />
+      <select
+        name="job"
+        className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+        {Jobs.map((job) => (
+          <option key={job} value={job}>
+            {job}
+          </option>
+        ))}
+      </select>
       {GearSlots.map((slot) => (
         <div key={slot} className="flex items-center justify-center gap-2">
           <label>{GearSlotIcons[slot]}</label>

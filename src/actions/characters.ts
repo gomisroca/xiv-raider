@@ -2,12 +2,13 @@
 
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
-import { GearSlot, GearStatus } from 'generated/prisma';
+import { GearSlot, GearStatus, Job } from 'generated/prisma';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 const CreateSchema = z.object({
   name: z.string().min(2),
+  job: z.nativeEnum(Job),
   groupId: z.string(),
   gearPieces: z.array(
     z.object({
@@ -23,6 +24,7 @@ export async function createCharacter(createData: z.infer<typeof CreateSchema>) 
 
   const validatedFields = CreateSchema.safeParse({
     name: createData.name,
+    job: createData.job,
     groupId: createData.groupId,
     gearPieces: createData.gearPieces,
   });
@@ -42,6 +44,7 @@ export async function createCharacter(createData: z.infer<typeof CreateSchema>) 
     await trx.character.create({
       data: {
         name: data.name,
+        job: data.job,
         ownerId: session.user.id,
         groupId: data.groupId,
         // Create all gear pieces at once
@@ -61,6 +64,7 @@ export async function createCharacter(createData: z.infer<typeof CreateSchema>) 
 
 const UpdateSchema = z.object({
   id: z.string(),
+  job: z.nativeEnum(Job),
   groupId: z.string(),
   name: z.string().min(2),
   gearPieces: z.array(
@@ -76,6 +80,7 @@ export async function updateCharacter(updateData: z.infer<typeof UpdateSchema>) 
 
   const validatedFields = UpdateSchema.safeParse({
     id: updateData.id,
+    job: updateData.job,
     groupId: updateData.groupId,
     name: updateData.name,
     gearPieces: updateData.gearPieces,
@@ -102,6 +107,7 @@ export async function updateCharacter(updateData: z.infer<typeof UpdateSchema>) 
       },
       data: {
         name: data.name,
+        job: data.job,
       },
     });
 

@@ -26,6 +26,30 @@ export const GearSlots = [
   'Ring2',
 ] as const;
 
+export const Jobs = [
+  'WAR',
+  'PLD',
+  'DRK',
+  'GNB',
+  'WHM',
+  'SCH',
+  'AST',
+  'SGE',
+  'MNK',
+  'SAM',
+  'RPR',
+  'DRG',
+  'NIN',
+  'VPR',
+  'BRD',
+  'MCH',
+  'DNC',
+  'BLM',
+  'PCT',
+  'SMN',
+  'RDM',
+] as const;
+
 export const GearStatuses = ['BiS', 'NeedsTomestone', 'NeedsRaidDrop'] as const;
 
 export const GearSlotIcons: Record<GearSlot, ReactElement> = {
