@@ -21,6 +21,8 @@ export default async function Home() {
           {session.user.groups.map((group) => (
             <GroupLink key={group.id} group={group} />
           ))}
+
+          <CreateButton session={session} size="small" />
         </div>
       ) : (
         <CreateButton session={session} />
