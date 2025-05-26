@@ -9,7 +9,9 @@ export default async function CharacterPage({ params }: { params: Promise<{ char
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <header className="flex items-center justify-between gap-2">
-        <h4 className="text-xl font-bold">{character.name}</h4>
+        <h4 className="text-xl font-bold">
+          {character.name} - {character.owner.name}
+        </h4>
       </header>
       <main className="flex flex-col gap-2 p-4">
         {character.gear.map((gear) => (
