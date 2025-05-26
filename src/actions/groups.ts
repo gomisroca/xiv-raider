@@ -30,20 +30,30 @@ export async function createGroup(createData: CreateGroupData) {
   });
   if (existingGroup) throw new Error('You already own a group with that name');
 
-  const group = await db.group.create({
-    data: {
-      name: data.name,
-      createdBy: {
-        connect: {
-          id: session.user.id,
+  const group = await db.$transaction(async (trx) => {
+    const group = await trx.group.create({
+      data: {
+        name: data.name,
+        createdBy: {
+          connect: {
+            id: session.user.id,
+          },
+        },
+        members: {
+          connect: {
+            id: session.user.id,
+          },
         },
       },
-      members: {
-        connect: {
-          id: session.user.id,
-        },
+    });
+
+    await trx.groupPlan.create({
+      data: {
+        groupId: group.id,
       },
-    },
+    });
+
+    return group;
   });
 
   return { message: 'Group created.', redirect: `/group/${group.id}` };
