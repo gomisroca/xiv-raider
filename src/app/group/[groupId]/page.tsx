@@ -23,13 +23,20 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
             Add Character
           </Link>
         )}
-        {session.user.id === group.createdBy.id && <InviteButton groupId={groupId} />}
+        {session.user.id === group.createdBy.id && (
+          <div className="flex items-center gap-2">
+            <Link href={`/group/${groupId}/plan`} className="w-fit font-semibold uppercase">
+              Update Plan
+            </Link>
+            <InviteButton groupId={groupId} />
+          </div>
+        )}
       </header>
       <main className="flex flex-col gap-2 p-4">
         {group.characters.map((character) => (
           <div key={character.id} className="flex gap-1">
             <Link href={`/group/${groupId}/${character.id}`} className="w-fit font-semibold uppercase">
-              {character.name}
+              {character.name} - {character.owner.name}
             </Link>
             {session.user.id === group.createdBy.id && (
               <Link href={`/group/${groupId}/${character.id}/update`} className="w-fit font-semibold uppercase">
