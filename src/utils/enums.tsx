@@ -52,6 +52,8 @@ export const Jobs = [
 
 export const GearStatuses = ['BiS', 'NeedsTomestone', 'NeedsRaidDrop'] as const;
 
+export const PlanPriorities = ['Melee', 'Ranged', 'Tank', 'Healer'] as const;
+
 export const GearSlotIcons: Record<GearSlot, ReactElement> = {
   Weapon: <GiBroadsword size={20} />,
   Head: <GiVisoredHelm size={20} />,
