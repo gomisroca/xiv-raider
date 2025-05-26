@@ -2,7 +2,7 @@ import 'server-only';
 import { db } from '@/server/db';
 
 export async function getToken(tokenId: string) {
-  const token = await db.inviteToken.findUnique({
+  const token = await db.inviteToken.findUniqueOrThrow({
     where: {
       id: tokenId,
     },

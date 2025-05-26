@@ -5,7 +5,7 @@ import { db } from '@/server/db';
 export async function getGroup(id: string) {
   try {
     const session = await auth();
-    const group = await db.group.findUnique({
+    const group = await db.group.findUniqueOrThrow({
       where: {
         id,
         members: {
@@ -17,7 +17,11 @@ export async function getGroup(id: string) {
       include: {
         createdBy: true,
         members: true,
-        characters: true,
+        characters: {
+          include: {
+            owner: true,
+          },
+        },
       },
     });
 

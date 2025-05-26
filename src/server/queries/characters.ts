@@ -3,12 +3,13 @@ import { db } from '@/server/db';
 
 export async function getCharacter(id: string) {
   try {
-    const character = await db.character.findUnique({
+    const character = await db.character.findUniqueOrThrow({
       where: {
         id,
       },
       include: {
         gear: true,
+        owner: true,
       },
     });
 
