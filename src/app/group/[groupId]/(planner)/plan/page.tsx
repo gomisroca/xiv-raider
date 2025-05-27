@@ -14,11 +14,10 @@ export default async function UpdatePlan({ params }: { params: Promise<{ groupId
   if (!session) return <NotAllowed />;
 
   const plan = await getPlan(groupId);
-  if (!plan) return null;
 
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <UpdatePlanForm plan={plan} groupId={groupId} />
+      <UpdatePlanForm plan={plan ?? undefined} groupId={groupId} />
     </Suspense>
   );
 }

@@ -8,9 +8,10 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { createCharacter } from '@/actions/characters';
-import { GearSlotIcons, GearSlots, type GearStatus, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
+import { GearSlotIcons, GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
 import { useParams } from 'next/navigation';
 import { GearSlot, type Job } from 'generated/prisma';
+import { type ActionReturn } from 'types';
 
 export default function CreateCharacterForm({ modal = false }: { modal?: boolean }) {
   const params = useParams<{ groupId: string }>();
@@ -30,7 +31,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
         job: formData.get('job') as Job,
         gearPieces: Object.values(GearSlot).map((slot) => ({
           type: slot as GearSlot,
-          status: formData.get(slot) as GearStatus,
+          status: formData.get(slot) as GearStatuses,
         })),
       };
 

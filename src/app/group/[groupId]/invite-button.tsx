@@ -3,6 +3,7 @@
 import { generateToken } from '@/actions/tokens';
 import Button from '@/app/_components/ui/button';
 import { useRedirect } from '@/hooks/useRedirect';
+import { type ActionReturn } from 'types';
 
 export default function InviteButton({ groupId }: { groupId: string }) {
   const redirect = useRedirect();

@@ -8,12 +8,9 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { updateCharacter } from '@/actions/characters';
-import { GearSlotIcons, GearSlots, type GearStatus, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
-import { GearSlot, type Job, type Prisma } from 'generated/prisma';
-
-type ExtendedCharacter = Prisma.CharacterGetPayload<{
-  include: { gear: true };
-}>;
+import { GearSlotIcons, GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
+import { GearSlot, type GearStatus, type Job } from 'generated/prisma';
+import { type ActionReturn, type ExtendedCharacter } from 'types';
 
 export default function UpdateCharacterForm({
   modal = false,

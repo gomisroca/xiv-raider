@@ -8,6 +8,7 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import { createGroup } from '@/actions/groups';
 import SubmitButton from '../_components/ui/submit-button';
+import { type ActionReturn } from 'types';
 
 export default function CreateGroupForm({ modal = false }: { modal?: boolean }) {
   const redirect = useRedirect();
