@@ -20,6 +20,7 @@ export async function getGroup(id: string) {
         characters: {
           include: {
             owner: true,
+            gear: true,
           },
         },
       },

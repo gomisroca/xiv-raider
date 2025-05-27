@@ -3,7 +3,7 @@ import { db } from '@/server/db';
 
 export async function getPlan(groupId: string) {
   try {
-    const plan = await db.groupPlan.findUniqueOrThrow({
+    const plan = await db.groupPlan.findUnique({
       where: {
         groupId,
       },
