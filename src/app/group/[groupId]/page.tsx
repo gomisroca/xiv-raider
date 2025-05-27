@@ -4,6 +4,7 @@ import { auth } from '@/server/auth';
 import NotAllowed from '@/app/_components/ui/not-allowed';
 import Link from '@/app/_components/ui/link';
 import { FaPencil } from 'react-icons/fa6';
+import PlanWidget from './(planner)/plan-widget';
 
 export default async function GroupPage({ params }: { params: Promise<{ groupId: string }> }) {
   const { groupId } = await params;
@@ -33,6 +34,7 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
         )}
       </header>
       <main className="flex flex-col gap-2 p-4">
+        <PlanWidget group={group} />
         {group.characters.map((character) => (
           <div key={character.id} className="flex gap-1">
             <Link href={`/group/${groupId}/${character.id}`} className="w-fit font-semibold uppercase">
