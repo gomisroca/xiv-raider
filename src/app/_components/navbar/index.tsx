@@ -11,7 +11,7 @@ import UserMenu from './user-menu';
 export default async function Navbar() {
   const session = await auth();
   return (
-    <nav className="fixed top-0 z-10 flex h-12 w-full items-center justify-end space-x-2 px-4 transition ease-in">
+    <nav className="fixed top-0 right-0 z-10 flex h-12 w-fit items-center justify-end space-x-2 px-4 transition ease-in">
       {/* Link to the home page */}
       <Link href="/">
         <MdHome size={20} />
