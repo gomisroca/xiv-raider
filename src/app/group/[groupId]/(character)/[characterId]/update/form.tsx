@@ -8,9 +8,10 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { updateCharacter } from '@/actions/characters';
-import { GearSlotIcons, GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
+import { GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
 import { GearSlot, type GearStatus, type Job } from 'generated/prisma';
 import { type ActionReturn, type ExtendedCharacter } from 'types';
+import { GearIcon } from '@/utils/icons';
 
 export default function UpdateCharacterForm({
   modal = false,
@@ -84,7 +85,9 @@ export default function UpdateCharacterForm({
       </select>
       {GearSlots.map((slot) => (
         <div key={slot} className="flex items-center justify-center gap-2">
-          <label>{GearSlotIcons[slot]}</label>
+          <label>
+            <GearIcon gearSlot={slot} />
+          </label>
           <select
             name={slot}
             defaultValue={character.gear.find((gear) => gear.type === slot)?.status}

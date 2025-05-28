@@ -1,5 +1,6 @@
 import { getCharacter } from '@/server/queries/characters';
-import { GearSlotIcons, GearStatusLabels } from '@/utils/enums';
+import { GearStatusLabels } from '@/utils/enums';
+import { GearIcon } from '@/utils/icons';
 
 export default async function CharacterPage({ params }: { params: Promise<{ characterId: string }> }) {
   const { characterId } = await params;
@@ -16,7 +17,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ char
       <main className="flex flex-col gap-2 p-4">
         {character.gear.map((gear) => (
           <div key={gear.id} className="flex gap-1">
-            <span>{GearSlotIcons[gear.type]}</span>
+            <GearIcon gearSlot={gear.type} />
             <span>{GearStatusLabels[gear.status]}</span>
           </div>
         ))}

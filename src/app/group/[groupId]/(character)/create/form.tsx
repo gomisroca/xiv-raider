@@ -8,10 +8,11 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { createCharacter } from '@/actions/characters';
-import { GearSlotIcons, GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
+import { GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
 import { useParams } from 'next/navigation';
 import { GearSlot, type Job } from 'generated/prisma';
 import { type ActionReturn } from 'types';
+import { GearIcon } from '@/utils/icons';
 
 export default function CreateCharacterForm({ modal = false }: { modal?: boolean }) {
   const params = useParams<{ groupId: string }>();
@@ -77,7 +78,9 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
       </select>
       {GearSlots.map((slot) => (
         <div key={slot} className="flex items-center justify-center gap-2">
-          <label>{GearSlotIcons[slot]}</label>
+          <label>
+            <GearIcon gearSlot={slot} />
+          </label>
           <select
             name={slot}
             className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
