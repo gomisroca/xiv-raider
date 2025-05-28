@@ -47,3 +47,41 @@ export function getByPriority(
 
   return charactersByPriority;
 }
+
+type SortedLoot = Record<
+  string,
+  {
+    character: ExtendedCharacter;
+    needs: { slot: GearSlot; status: GearStatus }[];
+    priority: number;
+  }[]
+>;
+
+export function getSortedCharacters(
+  characters: ExtendedCharacter[],
+  plan: GroupPlan,
+  bossLootMap: Record<string, { slot: GearSlot; status: GearStatus }[]>
+): SortedLoot {
+  const priorities = getByPriority(characters, plan);
+  const bossNeeds = getBossNeeds(characters, bossLootMap);
+
+  const priorityMap = new Map<string, number>();
+  priorities.forEach((p, index) => {
+    p.chars.forEach((char) => {
+      priorityMap.set(char.id, index);
+    });
+  });
+
+  const sorted: SortedLoot = {};
+
+  for (const [boss, needs] of Object.entries(bossNeeds)) {
+    sorted[boss] = needs
+      .map((entry) => ({
+        ...entry,
+        priority: priorityMap.get(entry.character.id) ?? Infinity,
+      }))
+      .sort((a, b) => a.priority - b.priority);
+  }
+
+  return sorted;
+}
