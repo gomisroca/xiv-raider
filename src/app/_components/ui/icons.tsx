@@ -1,0 +1,32 @@
+import Image from 'next/image';
+import { GearStatuses, type Job } from '@/utils/enums';
+
+export function JobIcon({ job }: { job: Job }) {
+  return <Image alt={job} src={`/jobs/${job}.png`} width="30" height="30" />;
+}
+
+export function GearIcon({ gearSlot }: { gearSlot: string }) {
+  if (gearSlot === 'Ring1' || gearSlot === 'Ring2') gearSlot = 'Ring';
+  return (
+    <div className="flex h-[30px] w-[30px] items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900">
+      <Image
+        alt={gearSlot}
+        src={`/items/${gearSlot}.png`}
+        width="25"
+        height="25"
+        className="brightness-0 dark:brightness-200"
+      />
+    </div>
+  );
+}
+
+export function LootIcon({ status }: { status: GearStatuses }) {
+  return (
+    <Image
+      alt={status === 'NeedsRaidDrop' ? 'chest' : 'tomestone'}
+      src={`/items/${status === 'NeedsRaidDrop' ? 'chest' : 'tomestone'}.png`}
+      width="30"
+      height="30"
+    />
+  );
+}

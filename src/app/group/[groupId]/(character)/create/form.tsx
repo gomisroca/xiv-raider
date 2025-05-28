@@ -12,7 +12,7 @@ import { GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
 import { useParams } from 'next/navigation';
 import { GearSlot, type Job } from 'generated/prisma';
 import { type ActionReturn } from 'types';
-import { GearIcon } from '@/utils/icons';
+import { GearIcon } from '@/app/_components/ui/icons';
 
 export default function CreateCharacterForm({ modal = false }: { modal?: boolean }) {
   const params = useParams<{ groupId: string }>();

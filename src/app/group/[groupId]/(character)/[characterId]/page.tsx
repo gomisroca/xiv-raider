@@ -1,6 +1,6 @@
 import { getCharacter } from '@/server/queries/characters';
 import { GearStatusLabels } from '@/utils/enums';
-import { GearIcon } from '@/utils/icons';
+import { GearIcon } from '@/app/_components/ui/icons';
 
 export default async function CharacterPage({ params }: { params: Promise<{ characterId: string }> }) {
   const { characterId } = await params;

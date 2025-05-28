@@ -11,7 +11,7 @@ import { updateCharacter } from '@/actions/characters';
 import { GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
 import { GearSlot, type GearStatus, type Job } from 'generated/prisma';
 import { type ActionReturn, type ExtendedCharacter } from 'types';
-import { GearIcon } from '@/utils/icons';
+import { GearIcon } from '@/app/_components/ui/icons';
 
 export default function UpdateCharacterForm({
   modal = false,
