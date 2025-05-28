@@ -1,17 +1,4 @@
 import { GearSlot, GearStatus } from 'generated/prisma';
-import type { ReactElement } from 'react';
-import {
-  GiVisoredHelm,
-  GiArmorVest,
-  GiGloves,
-  GiBroadsword,
-  GiLegArmor,
-  GiBoots,
-  GiEarrings,
-  GiNecklace,
-  GiBracer,
-  GiRing,
-} from 'react-icons/gi';
 
 export const GearSlots = [
   'Weapon',
@@ -26,19 +13,6 @@ export const GearSlots = [
   'Ring1',
   'Ring2',
 ] as const;
-export const GearSlotIcons: Record<GearSlot, ReactElement> = {
-  Weapon: <GiBroadsword size={20} />,
-  Head: <GiVisoredHelm size={20} />,
-  Body: <GiArmorVest size={20} />,
-  Gloves: <GiGloves size={20} />,
-  Legs: <GiLegArmor size={20} />,
-  Feet: <GiBoots size={20} />,
-  Earrings: <GiEarrings size={20} />,
-  Necklace: <GiNecklace size={20} />,
-  Bracelet: <GiBracer size={20} />,
-  Ring1: <GiRing size={20} />,
-  Ring2: <GiRing size={20} />,
-};
 
 export const GearStatuses = ['BiS', 'NeedsTomestone', 'NeedsRaidDrop'] as const;
 export const GearStatusLabels: Record<GearStatus, string> = {
