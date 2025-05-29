@@ -105,12 +105,6 @@ model InviteToken {
     createdAt DateTime @default(now())
 }
 
-enum GearStatus {
-    BiS
-    NeedsTomestone
-    NeedsRaidDrop
-}
-
 enum GearSlot {
     Weapon
     Head
@@ -149,9 +143,20 @@ enum Job {
     RDM
 }
 
+enum GearStatus {
+    Unobtained
+    Obtained
+}
+
+enum LootType {
+    Tomestone
+    RaidDrop
+}
+
 model GearPiece {
     id          String     @id @default(cuid())
     type        GearSlot
+    lootType    LootType
     status      GearStatus
     character   Character  @relation(fields: [characterId], references: [id], onDelete: Cascade)
     characterId String
