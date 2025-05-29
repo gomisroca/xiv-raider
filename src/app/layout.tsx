@@ -35,7 +35,7 @@ export default async function RootLayout({
               <header>
                 <Navbar />
               </header>
-              <main className="flex flex-1 items-center justify-center px-2 md:px-0">{children}</main>
+              <main className="flex flex-1 items-center justify-center p-4 px-2 md:px-0">{children}</main>
               <Footer />
             </div>
           </JotaiProvider>
