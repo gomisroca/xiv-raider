@@ -1,4 +1,4 @@
-import { GearSlot, GearStatus } from 'generated/prisma';
+import { GearSlot, LootType } from 'generated/prisma';
 
 export const GearSlots = [
   'Weapon',
@@ -13,13 +13,8 @@ export const GearSlots = [
   'Ring1',
   'Ring2',
 ] as const;
-
-export const GearStatuses = ['BiS', 'NeedsTomestone', 'NeedsRaidDrop'] as const;
-export const GearStatusLabels: Record<GearStatus, string> = {
-  BiS: 'Best in Slot',
-  NeedsTomestone: 'Tomestone',
-  NeedsRaidDrop: 'Raid Drop',
-};
+export const GearStatuses = ['Obtained', 'Unobtained'] as const;
+export const LootTypes = ['Tomestone', 'RaidDrop'] as const;
 
 export const Jobs = [
   'WAR',
@@ -53,101 +48,101 @@ export const PlanPriorityJobs: Record<PlanPriority, Job[]> = {
   Healer: ['WHM', 'SCH', 'AST', 'SGE'],
 };
 
-export const BossLootMap: Record<string, { slot: GearSlot; status: GearStatus }[]> = {
+export const BossLootMap: Record<string, { slot: GearSlot; lootType: LootType }[]> = {
   'Dancing Green': [
     {
       slot: GearSlot.Earrings,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Necklace,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Bracelet,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Ring1,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Ring2,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
   ],
   'Sugar Riot': [
     {
       slot: GearSlot.Feet,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Gloves,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Head,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Earrings,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Necklace,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Bracelet,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Ring1,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Ring2,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
   ],
   'Brute Abombinator': [
     {
       slot: GearSlot.Body,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Legs,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
     {
       slot: GearSlot.Head,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Body,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Gloves,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Legs,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Feet,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
     {
       slot: GearSlot.Weapon,
-      status: GearStatus.NeedsTomestone,
+      lootType: LootType.Tomestone,
     },
   ],
   'Howling Blade': [
     {
       slot: GearSlot.Weapon,
-      status: GearStatus.NeedsRaidDrop,
+      lootType: LootType.RaidDrop,
     },
   ],
 };
@@ -155,4 +150,5 @@ export const BossLootMap: Record<string, { slot: GearSlot; status: GearStatus }[
 export type Job = (typeof Jobs)[number];
 export type PlanPriority = (typeof PlanPriorities)[number];
 export type GearSlots = (typeof GearSlots)[number];
+export type LootTypes = (typeof LootTypes)[number];
 export type GearStatuses = (typeof GearStatuses)[number];
