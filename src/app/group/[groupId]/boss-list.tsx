@@ -1,8 +1,13 @@
+'use client';
+
 import { BossLootMap, type PlanPriority } from '@/utils/enums';
-import { GearIcon, JobIcon, LootIcon } from '@/app/_components/ui/icons';
-import { getByPriority, getSortedCharacters } from '@/utils/mappers';
+import { JobIcon } from '@/app/_components/ui/icons';
 import { type GroupPlan } from 'generated/prisma';
 import { type ExtendedCharacter } from 'types';
+import LootButton from './loot-button';
+import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import { getByPriority, getSortedCharacters } from '@/utils/mappers';
 
 function PriorityDisplay({
   priorities,
@@ -29,46 +34,70 @@ function PriorityDisplay({
   );
 }
 
-export default async function BossLootList({ characters, plan }: { characters: ExtendedCharacter[]; plan: GroupPlan }) {
+export default function BossLootList({ characters, plan }: { characters: ExtendedCharacter[]; plan: GroupPlan }) {
   const priorities = getByPriority(characters, plan);
   const sortedCharacters = getSortedCharacters(characters, plan, BossLootMap);
 
+  const [collapsedBosses, setCollapsedBosses] = useState<Record<string, boolean>>({});
+
+  const toggleCollapse = (boss: string) => {
+    setCollapsedBosses((prev) => ({
+      ...prev,
+      [boss]: !prev[boss],
+    }));
+  };
+
   return (
     <div className="flex flex-col items-start justify-start gap-2">
-      {Object.entries(sortedCharacters).map(([boss, needs]) => (
-        <div key={boss} className="w-full">
-          <h2 className="text-lg font-semibold">{boss}</h2>
-          {needs.length === 0 ? (
-            <p className="pl-4 text-sm italic">No needs from this boss.</p>
-          ) : (
-            <ul className="flex list-none flex-col">
-              {needs.map(({ character, needs }) => (
-                // If you are the owner of the character, you can click on the this to mark it as done.
-                // Have to add a filter to see already done loot (should be easy enough, just have to get 'BiS' too), we can click that too to unmark it.
-                <li
-                  key={character.id}
-                  className="flex w-full items-center justify-between gap-1 py-1 transition-colors duration-200 ease-in-out odd:bg-zinc-100 hover:bg-zinc-300 odd:dark:bg-zinc-900 hover:dark:bg-zinc-700">
-                  <section className="flex items-center justify-start gap-1">
-                    <PriorityDisplay priorities={priorities} character={character} />
-                    <JobIcon job={character.job} />
-                    <strong>{character.name}</strong>
-                  </section>
-                  <section className="flex justify-end gap-1">
-                    {needs.map(({ slot, status }) => (
-                      <span
-                        key={slot}
-                        className="mr-2 inline-flex items-center gap-1 rounded-lg bg-zinc-200 px-2 py-1 dark:bg-zinc-800">
-                        <GearIcon gearSlot={slot} />
-                        <LootIcon status={status} />
-                      </span>
+      {Object.entries(sortedCharacters).map(([boss, needs]) => {
+        const isCollapsed = collapsedBosses[boss];
+
+        return (
+          <div key={boss} className="w-full">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold">{boss}</h2>
+              <button
+                onClick={() => toggleCollapse(boss)}
+                className="cursor-pointer p-2 text-sm text-sky-500 hover:underline dark:text-sky-600">
+                {isCollapsed ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
+            {!isCollapsed && (
+              <>
+                {needs.length === 0 ? (
+                  <p className="pl-4 text-sm italic">No needs from this boss.</p>
+                ) : (
+                  <ul className="flex list-none flex-col">
+                    {needs.map(({ character, needs }) => (
+                      <li
+                        key={character.id}
+                        className="flex w-full items-center justify-between gap-1 py-1 transition-colors duration-200 ease-in-out odd:bg-zinc-100 hover:bg-zinc-300 odd:dark:bg-zinc-900 hover:dark:bg-zinc-700">
+                        <section className="flex items-center justify-start gap-1">
+                          <PriorityDisplay priorities={priorities} character={character} />
+                          <JobIcon job={character.job} />
+                          <strong>{character.name}</strong>
+                        </section>
+                        <section className="flex justify-end gap-1">
+                          {needs.map(({ id, slot, lootType, status }) => (
+                            <LootButton
+                              key={slot}
+                              character={character}
+                              gearId={id}
+                              slot={slot}
+                              lootType={lootType}
+                              status={status}
+                            />
+                          ))}
+                        </section>
+                      </li>
                     ))}
-                  </section>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
+                  </ul>
+                )}
+              </>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
