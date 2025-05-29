@@ -9,7 +9,10 @@ function Footer() {
     <>
       <Message />
       <footer className="flex h-12 w-full items-center justify-between space-x-4 px-4">
-        <p className="text-sm leading-none tracking-tight">© {new Date().getFullYear()} XIV Raider</p>
+        <p className="text-sm leading-none tracking-tight">
+          © {new Date().getFullYear()} XIV Raider | All icons are property of SQUARE-ENIX Ltd{' '}
+          {new Date().getFullYear()} all rights reserved
+        </p>
         <ThemeButton />
       </footer>
     </>
