@@ -8,9 +8,9 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { createCharacter } from '@/actions/characters';
-import { GearSlots, GearStatuses, GearStatusLabels, Jobs } from '@/utils/enums';
+import { GearSlots, LootTypes, Jobs, GearStatuses } from '@/utils/enums';
 import { useParams } from 'next/navigation';
-import { GearSlot, type Job } from 'generated/prisma';
+import { GearSlot, type GearStatus, type LootType, type Job } from 'generated/prisma';
 import { type ActionReturn } from 'types';
 import { GearIcon } from '@/app/_components/ui/icons';
 
@@ -32,7 +32,8 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
         job: formData.get('job') as Job,
         gearPieces: Object.values(GearSlot).map((slot) => ({
           type: slot as GearSlot,
-          status: formData.get(slot) as GearStatuses,
+          lootType: formData.get(slot) as LootType,
+          status: formData.get(slot + 'Status') as GearStatus,
         })),
       };
 
@@ -84,9 +85,18 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
           <select
             name={slot}
             className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+            {LootTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+          <select
+            name={slot + 'Status'}
+            className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
             {GearStatuses.map((status) => (
               <option key={status} value={status}>
-                {GearStatusLabels[status]}
+                {status}
               </option>
             ))}
           </select>

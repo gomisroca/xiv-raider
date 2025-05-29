@@ -1,32 +1,34 @@
-import { type GearSlot, type GearStatus, type GroupPlan } from 'generated/prisma';
+import { type GearStatus, type LootType, type GearSlot, type GroupPlan } from 'generated/prisma';
 import { PlanPriorityJobs, type PlanPriority } from './enums';
 import { type ExtendedCharacter } from 'types';
 
 export function getBossNeeds(
   characters: ExtendedCharacter[],
-  bossLootMap: Record<string, { slot: GearSlot; status: GearStatus }[]>
+  bossLootMap: Record<string, { slot: GearSlot; lootType: LootType }[]>
 ): Record<
   string,
   {
     character: ExtendedCharacter;
-    needs: { slot: GearSlot; status: GearStatus }[];
+    needs: { id: string; slot: GearSlot; lootType: LootType; status: GearStatus }[];
   }[]
 > {
-  const result: Record<string, { character: ExtendedCharacter; needs: { slot: GearSlot; status: GearStatus }[] }[]> =
-    {};
+  const result: Record<
+    string,
+    { character: ExtendedCharacter; needs: { id: string; slot: GearSlot; lootType: LootType; status: GearStatus }[] }[]
+  > = {};
 
   for (const [boss, loot] of Object.entries(bossLootMap)) {
     result[boss] = characters
       .map((char) => {
         const needs = char.gear
-          .filter((gear) => loot.some((drop) => drop.slot === gear.type && drop.status === gear.status))
-          .map((gear) => ({ slot: gear.type, status: gear.status }));
+          .filter((gear) => loot.some((drop) => drop.slot === gear.type && drop.lootType === gear.lootType))
+          .map((gear) => ({ id: gear.id, slot: gear.type, lootType: gear.lootType, status: gear.status }));
 
         return needs.length > 0 ? { character: char, needs } : null;
       })
       .filter(Boolean) as {
       character: ExtendedCharacter;
-      needs: { slot: GearSlot; status: GearStatus }[];
+      needs: { id: string; slot: GearSlot; lootType: LootType; status: GearStatus }[];
     }[];
   }
 
@@ -52,7 +54,7 @@ type SortedLoot = Record<
   string,
   {
     character: ExtendedCharacter;
-    needs: { slot: GearSlot; status: GearStatus }[];
+    needs: { id: string; slot: GearSlot; lootType: LootType; status: GearStatus }[];
     priority: number;
   }[]
 >;
@@ -60,7 +62,7 @@ type SortedLoot = Record<
 export function getSortedCharacters(
   characters: ExtendedCharacter[],
   plan: GroupPlan,
-  bossLootMap: Record<string, { slot: GearSlot; status: GearStatus }[]>
+  bossLootMap: Record<string, { slot: GearSlot; lootType: LootType }[]>
 ): SortedLoot {
   const priorities = getByPriority(characters, plan);
   const bossNeeds = getBossNeeds(characters, bossLootMap);

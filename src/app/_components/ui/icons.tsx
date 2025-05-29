@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { GearStatuses, type Job } from '@/utils/enums';
+import { GearStatuses, LootTypes, type Job } from '@/utils/enums';
 
 export function JobIcon({ job }: { job: Job }) {
   return <Image alt={job} src={`/jobs/${job}.png`} width="30" height="30" />;
@@ -20,11 +20,11 @@ export function GearIcon({ gearSlot }: { gearSlot: string }) {
   );
 }
 
-export function LootIcon({ status }: { status: GearStatuses }) {
+export function LootIcon({ lootType }: { lootType: LootTypes }) {
   return (
     <Image
-      alt={status === 'NeedsRaidDrop' ? 'chest' : 'tomestone'}
-      src={`/items/${status === 'NeedsRaidDrop' ? 'chest' : 'tomestone'}.png`}
+      alt={lootType === 'RaidDrop' ? 'chest' : 'tomestone'}
+      src={`/items/${lootType === 'RaidDrop' ? 'chest' : 'tomestone'}.png`}
       width="30"
       height="30"
     />

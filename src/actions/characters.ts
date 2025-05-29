@@ -2,7 +2,7 @@
 
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
-import { GearSlot, GearStatus, Job } from 'generated/prisma';
+import { GearSlot, GearStatus, Job, LootType } from 'generated/prisma';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -13,6 +13,7 @@ const CreateSchema = z.object({
   gearPieces: z.array(
     z.object({
       type: z.nativeEnum(GearSlot),
+      lootType: z.nativeEnum(LootType),
       status: z.nativeEnum(GearStatus),
     })
   ),
@@ -51,6 +52,7 @@ export async function createCharacter(createData: z.infer<typeof CreateSchema>) 
         gear: {
           create: data.gearPieces.map((piece) => ({
             type: piece.type,
+            lootType: piece.lootType,
             status: piece.status,
           })),
         },
@@ -70,6 +72,7 @@ const UpdateSchema = z.object({
   gearPieces: z.array(
     z.object({
       type: z.nativeEnum(GearSlot),
+      lootType: z.nativeEnum(LootType),
       status: z.nativeEnum(GearStatus),
     })
   ),
@@ -133,6 +136,7 @@ export async function updateCharacter(updateData: z.infer<typeof UpdateSchema>) 
         await trx.gearPiece.create({
           data: {
             type: gearPiece.type,
+            lootType: gearPiece.lootType,
             status: gearPiece.status,
             characterId: data.id,
           },
@@ -147,6 +151,43 @@ export async function updateCharacter(updateData: z.infer<typeof UpdateSchema>) 
         where: { id: remainingGear.id },
       });
     }
+  });
+
+  revalidatePath(`/group/${data.groupId}`);
+  return { message: 'Character updated.', redirect: `/group/${data.groupId}` };
+}
+
+const UpdateGearSchema = z.object({
+  groupId: z.string(),
+  gearId: z.string(),
+});
+export async function updateGearSlot(updateData: z.infer<typeof UpdateGearSchema>) {
+  const session = await auth();
+  if (!session?.user) throw new Error('You must be signed in to update a character');
+
+  const validatedFields = UpdateGearSchema.safeParse({
+    groupId: updateData.groupId,
+    gearId: updateData.gearId,
+  });
+  if (!validatedFields.success) throw new Error(validatedFields.error.toString());
+  const { data } = validatedFields;
+
+  const existingGearPiece = await db.gearPiece.findUnique({
+    where: {
+      id: data.gearId,
+    },
+  });
+  if (!existingGearPiece) throw new Error('You cannot update a gear piece that does not belong to you');
+
+  const newStatus = existingGearPiece.status === 'Obtained' ? 'Unobtained' : 'Obtained';
+
+  await db.gearPiece.update({
+    where: {
+      id: data.gearId,
+    },
+    data: {
+      status: newStatus,
+    },
   });
 
   revalidatePath(`/group/${data.groupId}`);
