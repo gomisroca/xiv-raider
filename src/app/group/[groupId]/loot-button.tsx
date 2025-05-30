@@ -20,6 +20,11 @@ export default function LootButton({
   status: GearStatus;
 }) {
   const handleStatusChange = async () => {
+    const newStatus = status === 'Obtained' ? 'Unobtained' : 'Obtained';
+    const confirmed = confirm(`Are you sure you want to mark ${character.name}'s ${slot} as ${newStatus}?`);
+
+    if (!confirmed) return;
+
     await updateGearSlot({
       groupId: character.groupId,
       gearId,
