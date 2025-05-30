@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { GearStatuses, LootTypes, type Job } from '@/utils/enums';
+import { Job, LootType } from 'generated/prisma';
 
 export function JobIcon({ job }: { job: Job }) {
   return <Image alt={job} src={`/jobs/${job}.png`} width="30" height="30" />;
@@ -20,7 +20,7 @@ export function GearIcon({ gearSlot }: { gearSlot: string }) {
   );
 }
 
-export function LootIcon({ lootType }: { lootType: LootTypes }) {
+export function LootIcon({ lootType }: { lootType: LootType }) {
   return (
     <Image
       alt={lootType === 'RaidDrop' ? 'chest' : 'tomestone'}

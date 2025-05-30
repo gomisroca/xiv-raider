@@ -1,5 +1,4 @@
 import { getCharacter } from '@/server/queries/characters';
-import { GearStatusLabels } from '@/utils/enums';
 import { GearIcon } from '@/app/_components/ui/icons';
 
 export default async function CharacterPage({ params }: { params: Promise<{ characterId: string }> }) {
@@ -18,7 +17,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ char
         {character.gear.map((gear) => (
           <div key={gear.id} className="flex gap-1">
             <GearIcon gearSlot={gear.type} />
-            <span>{GearStatusLabels[gear.status]}</span>
+            <span>{gear.status}</span>
           </div>
         ))}
       </main>

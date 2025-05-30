@@ -1,4 +1,4 @@
-import { GearSlot, LootType } from 'generated/prisma';
+import { GearSlot, type Job, LootType } from 'generated/prisma';
 
 export const GearSlots = [
   'Weapon',
@@ -147,8 +147,4 @@ export const BossLootMap: Record<string, { slot: GearSlot; lootType: LootType }[
   ],
 };
 
-export type Job = (typeof Jobs)[number];
 export type PlanPriority = (typeof PlanPriorities)[number];
-export type GearSlots = (typeof GearSlots)[number];
-export type LootTypes = (typeof LootTypes)[number];
-export type GearStatuses = (typeof GearStatuses)[number];
