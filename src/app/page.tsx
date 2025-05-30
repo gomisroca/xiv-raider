@@ -5,7 +5,11 @@ import { type Group } from 'generated/prisma';
 
 function GroupLink({ group }: { group: Group }) {
   return (
-    <Link key={group.id} href={`/group/${group.id}`} className="h-20 w-70 text-xl font-semibold uppercase">
+    <Link
+      key={group.id}
+      href={`/group/${group.id}`}
+      name={group.name}
+      className="h-20 w-70 text-xl font-semibold uppercase">
       {group.name}
     </Link>
   );

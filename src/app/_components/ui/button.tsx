@@ -40,13 +40,14 @@ function Button({ onClick, type = 'button', name, disabled = false, children, cl
         onClick={onClick}
         type={type}
         disabled={disabled}
+        aria-disabled={disabled}
+        aria-label={name}
         className={twMerge(
           'flex h-[36px] w-[36px] cursor-pointer items-center justify-center rounded-lg bg-sky-500 p-2 text-zinc-50 transition duration-200 ease-in-out *:pointer-events-none *:text-zinc-50 *:opacity-80 hover:animate-[pulse-scale_1.5s_ease-in-out_infinite] hover:*:opacity-100 active:scale-90 active:rotate-[-1deg] active:animate-none active:shadow-lg dark:bg-sky-600 dark:text-zinc-200 dark:*:text-zinc-200',
           className,
           disabled &&
             'cursor-not-allowed bg-transparent opacity-50 hover:animate-none hover:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:active:bg-transparent'
         )}>
-        <span className="sr-only">{name}</span>
         {children}
       </button>
     </>

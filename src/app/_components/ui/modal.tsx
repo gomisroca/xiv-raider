@@ -46,8 +46,11 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   return createPortal(
     <div
       className="absolute top-0 right-0 bottom-0 left-0 z-[1000] flex items-center justify-center bg-black/70"
-      ref={parent}>
+      ref={parent}
+      aria-hidden="true">
       <dialog
+        role="dialog"
+        aria-modal="true"
         ref={dialogRef}
         className="max-height-[500px] relative m-auto flex w-[80%] max-w-[500px] items-center justify-center rounded-lg bg-zinc-100 p-4 dark:bg-zinc-900"
         onClose={onDismiss}>

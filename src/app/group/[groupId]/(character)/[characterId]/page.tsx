@@ -13,14 +13,14 @@ export default async function CharacterPage({ params }: { params: Promise<{ char
           {character.name} - {character.owner.name}
         </h4>
       </header>
-      <main className="flex flex-col gap-2 p-4">
+      <section className="flex flex-col gap-2 p-4">
         {character.gear.map((gear) => (
           <div key={gear.id} className="flex gap-1">
             <GearIcon gearSlot={gear.type} />
             <span>{gear.status}</span>
           </div>
         ))}
-      </main>
+      </section>
     </div>
   );
 }
