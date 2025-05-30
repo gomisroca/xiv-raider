@@ -97,12 +97,14 @@ model GroupPlan {
 }
 
 model InviteToken {
-    id      String @id @default(cuid())
-    group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
-    groupId String
-    uses    Int    @default(10)
+    id            String @id @default(cuid())
+    group         Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    groupId       String
+    maxUses       Int    @default(10)
+    remainingUses Int    @default(10)
 
-    createdAt DateTime @default(now())
+    createdAt DateTime  @default(now())
+    expiresAt DateTime?
 }
 
 enum GearSlot {

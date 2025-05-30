@@ -26,6 +26,9 @@ export async function generateToken({ groupId }: { groupId: string }) {
             id: groupId,
           },
         },
+        maxUses: 10,
+        remainingUses: 10,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       },
     });
     return token;
@@ -45,26 +48,18 @@ export async function consumeToken({ tokenId }: { tokenId: string }) {
         id: tokenId,
       },
       include: {
-        group: true,
+        group: { include: { members: true } },
       },
     });
-    if (!token || token.uses === 0) throw new Error('Invalid invite token');
+    if (!token || token.remainingUses <= 0 || (token.expiresAt && token.expiresAt < new Date())) {
+      throw new Error('Invalid or expired invite token');
+    }
 
-    const group = await trx.group.findUnique({
-      where: {
-        id: token.groupId,
-      },
-      include: {
-        members: true,
-      },
-    });
-    if (!group) throw new Error('Invalid invite token');
-
-    return [token, group];
+    return [token, token.group];
   });
 
-  const member = group.members.find((member) => member.id === session.user.id);
-  if (member) throw new Error('You are already a member of this group');
+  const alreadyMember = group.members.some((member) => member.id === session.user.id);
+  if (alreadyMember) throw new Error('You are already a member of this group');
 
   // Update group and token
   await db.$transaction(async (trx) => {
@@ -87,12 +82,12 @@ export async function consumeToken({ tokenId }: { tokenId: string }) {
         id: token.id,
       },
       data: {
-        uses: {
+        remainingUses: {
           decrement: 1,
         },
       },
     });
-    if (updatedToken.uses === 0) {
+    if (updatedToken.remainingUses <= 0) {
       await trx.inviteToken.delete({
         where: {
           id: token.id,
