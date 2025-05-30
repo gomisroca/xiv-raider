@@ -4,6 +4,7 @@ import { PlanPriorityJobs, type PlanPriority } from '@/utils/enums';
 import { type Prisma, type GroupPlan } from 'generated/prisma';
 import { type Session } from 'next-auth';
 import { FaPencil } from 'react-icons/fa6';
+import KickButton from './kick-button';
 
 type ExtendedGroup = Prisma.GroupGetPayload<{
   include: {
@@ -46,6 +47,7 @@ export default async function MemberList({
             {chararacters.map((character) => (
               <li key={character.id} className="flex w-full items-center justify-start">
                 <Link
+                  name={`View ${character.name}`}
                   href={`/group/${group.id}/${character.id}`}
                   className={`flex flex-1 items-center justify-start gap-1 font-semibold uppercase ${characterOwner && 'rounded-r-none'}`}>
                   <JobIcon job={character.job} />
@@ -53,10 +55,14 @@ export default async function MemberList({
                 </Link>
                 {characterOwner && (
                   <Link
+                    name={`Update ${character.name}`}
                     href={`/group/${group.id}/${character.id}/update`}
                     className="rounded-l-none border-l-1 border-zinc-400 font-semibold uppercase">
                     <FaPencil />
                   </Link>
+                )}
+                {session?.user.id === group.createdById && (
+                  <KickButton groupId={group.id} memberName={character.name} memberId={character.id} />
                 )}
               </li>
             ))}

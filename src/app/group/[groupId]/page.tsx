@@ -6,6 +6,7 @@ import Link from '@/app/_components/ui/link';
 import { getPlan } from '@/server/queries/plans';
 import BossLootList from './boss-list';
 import MemberList from './member-list';
+import LeaveButton from './leave-button';
 
 export default async function GroupPage({ params }: { params: Promise<{ groupId: string }> }) {
   const { groupId } = await params;
@@ -24,24 +25,25 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
         <h4 className="text-2xl font-bold">{group?.name}</h4>
         <aside className="flex items-center gap-2">
           {!group.characters.find((character) => character.ownerId === session.user.id) && (
-            <Link href={`/group/${groupId}/create`} className="w-fit font-semibold uppercase">
+            <Link name="Add Character" href={`/group/${groupId}/create`} className="w-fit font-semibold uppercase">
               Add Character
             </Link>
           )}
           {session.user.id === group.createdBy.id && (
             <div className="flex items-center gap-2">
-              <Link href={`/group/${groupId}/plan`} className="w-fit font-semibold uppercase">
+              <Link name="Update Plan" href={`/group/${groupId}/plan`} className="w-fit font-semibold uppercase">
                 Update Plan
               </Link>
               <InviteButton groupId={groupId} />
             </div>
           )}
+          <LeaveButton groupId={groupId} memberId={session.user.id} />
         </aside>
       </header>
-      <main className="flex flex-col gap-2 p-4">
+      <section className="flex flex-col gap-2 p-4">
         <BossLootList characters={group.characters} plan={plan} />
         <MemberList group={group} plan={plan} session={session} />
-      </main>
+      </section>
     </div>
   );
 }
