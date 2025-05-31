@@ -101,6 +101,27 @@ export async function updateGroup(updateData: UpdateGroupData) {
   return { message: 'Group updated.', redirect: `/group/${data.id}` };
 }
 
+export async function deleteGroup(deleteData: { groupId: string }) {
+  const session = await auth();
+  if (!session?.user) throw new Error('You must be signed in to delete a group');
+
+  const existingGroup = await db.group.findUnique({
+    where: {
+      id: deleteData.groupId,
+      createdById: session.user.id,
+    },
+  });
+  if (!existingGroup) throw new Error('Group by given ID does not exist or you do not own it');
+
+  await db.group.delete({
+    where: {
+      id: deleteData.groupId,
+    },
+  });
+
+  return { message: 'Group deleted.', redirect: `/` };
+}
+
 export async function removeMember(removeData: { groupId: string; memberId: string }) {
   const session = await auth();
   if (!session?.user) throw new Error('You must be signed in to remove a member from a group');

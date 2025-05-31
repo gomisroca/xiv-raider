@@ -7,6 +7,7 @@ import { getPlan } from '@/server/queries/plans';
 import BossLootList from './boss-list';
 import MemberList from './member-list';
 import LeaveButton from './leave-button';
+import DeleteButton from './delete-button';
 
 export default async function GroupPage({ params }: { params: Promise<{ groupId: string }> }) {
   const { groupId } = await params;
@@ -35,6 +36,7 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
                 Update Plan
               </Link>
               <InviteButton groupId={groupId} />
+              <DeleteButton groupId={groupId} />
             </div>
           )}
           <LeaveButton groupId={groupId} memberId={session.user.id} />
