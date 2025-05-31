@@ -3,8 +3,10 @@
 import { updateGearSlot } from '@/actions/characters';
 import Button from '@/app/_components/ui/button';
 import { GearIcon, LootIcon } from '@/app/_components/ui/icons';
+import { messageAtom } from '@/atoms/message';
 import { type LootType, type GearSlot, type GearStatus } from 'generated/prisma';
-import { type ExtendedCharacter } from 'types';
+import { useSetAtom } from 'jotai';
+import { type ActionReturn, type ExtendedCharacter } from 'types';
 
 export default function LootButton({
   character,
@@ -19,15 +21,22 @@ export default function LootButton({
   lootType: LootType;
   status: GearStatus;
 }) {
+  const setMessage = useSetAtom(messageAtom);
+
   const handleStatusChange = async () => {
     const newStatus = status === 'Obtained' ? 'Unobtained' : 'Obtained';
     const confirmed = confirm(`Are you sure you want to mark ${character.name}'s ${slot} as ${newStatus}?`);
 
     if (!confirmed) return;
 
-    await updateGearSlot({
+    const action: ActionReturn = await updateGearSlot({
       groupId: character.groupId,
       gearId,
+    });
+
+    setMessage({
+      content: action.message,
+      error: action.error,
     });
   };
 
