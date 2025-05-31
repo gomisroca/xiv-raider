@@ -30,27 +30,31 @@ export async function createCharacter(createData: z.infer<typeof CreateSchema>) 
     gearPieces: createData.gearPieces,
   });
   if (!validatedFields.success) throw new Error(validatedFields.error.toString());
-  const { data } = validatedFields;
+  const { name, job, groupId, gearPieces } = validatedFields.data;
+  const trimmedName = name.trim();
 
-  const existingCharacter = await db.character.findFirst({
-    where: {
-      ownerId: session.user.id,
-      groupId: data.groupId,
-    },
-  });
-  if (existingCharacter) throw new Error('You already own a character in this group');
+  return await db.$transaction(async (trx) => {
+    const existingCharacter = await trx.character.findFirst({
+      where: {
+        ownerId: session.user.id,
+        groupId,
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (existingCharacter) throw new Error('You already own a character in this group');
 
-  await db.$transaction(async (trx) => {
     // Create the character
     await trx.character.create({
       data: {
-        name: data.name,
-        job: data.job,
+        name: trimmedName,
+        job,
         ownerId: session.user.id,
-        groupId: data.groupId,
+        groupId,
         // Create all gear pieces at once
         gear: {
-          create: data.gearPieces.map((piece) => ({
+          create: gearPieces.map((piece) => ({
             type: piece.type,
             lootType: piece.lootType,
             status: piece.status,
@@ -58,10 +62,10 @@ export async function createCharacter(createData: z.infer<typeof CreateSchema>) 
         },
       },
     });
-  });
 
-  revalidatePath(`/group/${data.groupId}`);
-  return { message: 'Character created.', redirect: `/group/${data.groupId}` };
+    revalidatePath(`/group/${groupId}`);
+    return { message: `Character ${trimmedName} was created.`, redirect: `/group/${groupId}` };
+  });
 }
 
 const UpdateSchema = z.object({
@@ -83,34 +87,35 @@ export async function updateCharacter(updateData: z.infer<typeof UpdateSchema>) 
 
   const validatedFields = UpdateSchema.safeParse({
     id: updateData.id,
+    name: updateData.name,
     job: updateData.job,
     groupId: updateData.groupId,
-    name: updateData.name,
     gearPieces: updateData.gearPieces,
   });
   if (!validatedFields.success) throw new Error(validatedFields.error.toString());
-  const { data } = validatedFields;
+  const { id, name, job, groupId, gearPieces } = validatedFields.data;
+  const trimmedName = name.trim();
 
-  const existingCharacter = await db.character.findUnique({
-    where: {
-      id: data.id,
-      ownerId: session.user.id,
-    },
-    include: {
-      gear: true,
-    },
-  });
-  if (!existingCharacter) throw new Error('You cannot update a character that does not belong to you');
+  return await db.$transaction(async (trx) => {
+    const existingCharacter = await trx.character.findUnique({
+      where: {
+        id,
+        ownerId: session.user.id,
+      },
+      include: {
+        gear: true,
+      },
+    });
+    if (!existingCharacter) throw new Error('You cannot update a character that does not belong to you');
 
-  await db.$transaction(async (trx) => {
     // Create the character
     await trx.character.update({
       where: {
-        id: data.id,
+        id,
       },
       data: {
-        name: data.name,
-        job: data.job,
+        name: trimmedName,
+        job,
       },
     });
 
@@ -118,7 +123,7 @@ export async function updateCharacter(updateData: z.infer<typeof UpdateSchema>) 
     const existingGearMap = new Map(existingCharacter.gear.map((gear) => [gear.type, gear]));
 
     // Process each gear piece in the update data
-    for (const gearPiece of data.gearPieces) {
+    for (const gearPiece of gearPieces) {
       const existingGear = existingGearMap.get(gearPiece.type);
 
       if (existingGear) {
@@ -138,23 +143,22 @@ export async function updateCharacter(updateData: z.infer<typeof UpdateSchema>) 
             type: gearPiece.type,
             lootType: gearPiece.lootType,
             status: gearPiece.status,
-            characterId: data.id,
+            characterId: id,
           },
         });
       }
     }
 
     // Delete any remaining gear pieces that weren't in the update data
-    // (This is unlikely with your fixed gear slots, but included for completeness)
     for (const [, remainingGear] of existingGearMap) {
       await trx.gearPiece.delete({
         where: { id: remainingGear.id },
       });
     }
-  });
 
-  revalidatePath(`/group/${data.groupId}`);
-  return { message: 'Character updated.', redirect: `/group/${data.groupId}` };
+    revalidatePath(`/group/${groupId}`);
+    return { message: `Character ${trimmedName} was updated.`, redirect: `/group/${groupId}` };
+  });
 }
 
 const UpdateGearSchema = z.object({
@@ -170,26 +174,40 @@ export async function updateGearSlot(updateData: z.infer<typeof UpdateGearSchema
     gearId: updateData.gearId,
   });
   if (!validatedFields.success) throw new Error(validatedFields.error.toString());
-  const { data } = validatedFields;
+  const { groupId, gearId } = validatedFields.data;
 
-  const existingGearPiece = await db.gearPiece.findUnique({
-    where: {
-      id: data.gearId,
-    },
+  return await db.$transaction(async (trx) => {
+    const existingGearPiece = await trx.gearPiece.findUnique({
+      where: {
+        id: gearId,
+      },
+      select: {
+        type: true,
+        status: true,
+        character: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    if (!existingGearPiece) throw new Error('You cannot update a gear piece that does not belong to you');
+
+    const newStatus = existingGearPiece.status === 'Obtained' ? 'Unobtained' : 'Obtained';
+
+    await db.gearPiece.update({
+      where: {
+        id: gearId,
+      },
+      data: {
+        status: newStatus,
+      },
+    });
+
+    revalidatePath(`/group/${groupId}`);
+    return {
+      message: `${existingGearPiece.character.name}'s ${existingGearPiece.type} status was set to ${newStatus.toLowerCase()}.`,
+      redirect: `/group/${groupId}`,
+    };
   });
-  if (!existingGearPiece) throw new Error('You cannot update a gear piece that does not belong to you');
-
-  const newStatus = existingGearPiece.status === 'Obtained' ? 'Unobtained' : 'Obtained';
-
-  await db.gearPiece.update({
-    where: {
-      id: data.gearId,
-    },
-    data: {
-      status: newStatus,
-    },
-  });
-
-  revalidatePath(`/group/${data.groupId}`);
-  return { message: 'Character updated.', redirect: `/group/${data.groupId}` };
 }

@@ -26,43 +26,43 @@ export async function updatePlan(updateData: z.infer<typeof UpdateSchema>) {
     priority_4: updateData.priority_4,
   });
   if (!validatedFields.success) throw new Error(validatedFields.error.toString());
-  const { data } = validatedFields;
+  const { groupId, priority_1, priority_2, priority_3, priority_4 } = validatedFields.data;
 
-  const existingGroup = await db.group.findFirst({
-    where: {
-      id: data.groupId,
-      createdById: session.user.id,
-    },
-  });
-  if (!existingGroup) throw new Error('You cannot update the group plan of a group that does not belong to you');
+  return await db.$transaction(async (trx) => {
+    const existingGroup = await trx.group.findFirst({
+      where: {
+        id: groupId,
+        createdById: session.user.id,
+      },
+    });
+    if (!existingGroup) throw new Error('You cannot update the group plan of a group that does not belong to you');
 
-  await db.$transaction(async (trx) => {
-    const existingPlan = await trx.groupPlan.findUnique({ where: { groupId: data.groupId } });
+    const existingPlan = await trx.groupPlan.findUnique({ where: { groupId } });
     if (!existingPlan) {
       await trx.groupPlan.create({
         data: {
-          groupId: data.groupId,
-          priority_1: data.priority_1,
-          priority_2: data.priority_2,
-          priority_3: data.priority_3,
-          priority_4: data.priority_4,
+          groupId,
+          priority_1,
+          priority_2,
+          priority_3,
+          priority_4,
         },
       });
     } else {
       await trx.groupPlan.update({
         where: {
-          groupId: data.groupId,
+          groupId,
         },
         data: {
-          priority_1: data.priority_1,
-          priority_2: data.priority_2,
-          priority_3: data.priority_3,
-          priority_4: data.priority_4,
+          priority_1,
+          priority_2,
+          priority_3,
+          priority_4,
         },
       });
     }
-  });
 
-  revalidatePath(`/group/${data.groupId}`);
-  return { message: 'Group plan updated.', redirect: `/group/${data.groupId}` };
+    revalidatePath(`/group/${groupId}`);
+    return { message: `Plan for group ${existingGroup.name} was updated.`, redirect: `/group/${groupId}` };
+  });
 }

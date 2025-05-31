@@ -7,7 +7,7 @@ export async function generateToken({ groupId }: { groupId: string }) {
   const session = await auth();
   if (!session?.user) throw new Error('You must be signed in to create an invite token');
 
-  const token = await db.$transaction(async (trx) => {
+  return await db.$transaction(async (trx) => {
     const group = await trx.group.findUnique({
       where: {
         id: groupId,
@@ -31,10 +31,8 @@ export async function generateToken({ groupId }: { groupId: string }) {
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       },
     });
-    return token;
+    return { message: 'Group invite token created.', redirect: `/invite?code=${token.id}` };
   });
-
-  return { message: 'Group invite token created.', redirect: `/invite?code=${token.id}` };
 }
 
 export async function consumeToken({ tokenId }: { tokenId: string }) {
@@ -42,30 +40,35 @@ export async function consumeToken({ tokenId }: { tokenId: string }) {
   if (!session?.user) throw new Error('You must be signed in to join a group');
 
   // Find token and group
-  const [token, group] = await db.$transaction(async (trx) => {
+  return await db.$transaction(async (trx) => {
     const token = await trx.inviteToken.findUnique({
       where: {
         id: tokenId,
       },
       include: {
-        group: { include: { members: true } },
+        group: {
+          select: {
+            id: true,
+            name: true,
+            members: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
       },
     });
-    if (!token || token.remainingUses <= 0 || (token.expiresAt && token.expiresAt < new Date())) {
+    if (!token || token.remainingUses <= 0 || (token.expiresAt && token.expiresAt < new Date()))
       throw new Error('Invalid or expired invite token');
-    }
 
-    return [token, token.group];
-  });
+    const alreadyMember = token.group.members.some((m) => m.id === session.user.id);
+    if (alreadyMember) throw new Error('You are already a member of this group');
 
-  const alreadyMember = group.members.some((member) => member.id === session.user.id);
-  if (alreadyMember) throw new Error('You are already a member of this group');
-
-  // Update group and token
-  await db.$transaction(async (trx) => {
+    // Update group and token
     await trx.group.update({
       where: {
-        id: group.id,
+        id: token.group.id,
       },
       data: {
         members: {
@@ -77,24 +80,20 @@ export async function consumeToken({ tokenId }: { tokenId: string }) {
       },
     });
 
-    const updatedToken = await trx.inviteToken.update({
-      where: {
-        id: token.id,
-      },
-      data: {
-        remainingUses: {
-          decrement: 1,
-        },
-      },
-    });
-    if (updatedToken.remainingUses <= 0) {
+    // Decrement or delete token
+    if (token.remainingUses === 1) {
       await trx.inviteToken.delete({
-        where: {
-          id: token.id,
+        where: { id: token.id },
+      });
+    } else {
+      await trx.inviteToken.update({
+        where: { id: token.id },
+        data: {
+          remainingUses: { decrement: 1 },
         },
       });
     }
-  });
 
-  return { message: 'You have joined the group.', redirect: `/group/${group.id}` };
+    return { message: `You joined the group ${token.group.name}.`, redirect: `/group/${token.group.id}` };
+  });
 }
