@@ -8,9 +8,14 @@ export const getCharacter = cache(async (id: string) => {
       where: {
         id,
       },
-      include: {
-        gear: true,
-        owner: true,
+      select: {
+        id: true,
+        name: true,
+        job: true,
+        owner: { select: { id: true, name: true } },
+        gear: {
+          select: { id: true, type: true, lootType: true, status: true },
+        },
       },
     });
 

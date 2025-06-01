@@ -22,10 +22,11 @@ export default async function CharacterPage({ params }: Props) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
-      <header className="flex items-center justify-between gap-2">
+      <header className="flex flex-col items-center justify-center gap-2">
         <h4 className="text-xl font-bold">
           {character.name} - {character.owner.name}
         </h4>
+        <p className="text-sm text-zinc-400">{character.job}</p>
       </header>
       <section className="grid grid-cols-2 space-y-1 gap-x-4 p-4">
         {character.gear.map((gear) => (
