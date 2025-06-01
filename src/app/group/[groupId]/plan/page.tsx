@@ -8,21 +8,23 @@ import UpdatePlanForm from './form';
 import { getPlan } from '@/server/queries/plans';
 import { type Metadata } from 'next';
 
+type Props = { params: Promise<{ groupId: string }> };
+
 export const metadata: Metadata = {
   title: 'XIV Raider | Update Group Plan',
 };
 
-export default async function UpdatePlan({ params }: { params: Promise<{ groupId: string }> }) {
+export default async function UpdatePlan({ params }: Props) {
   const { groupId } = await params;
+
   const session = await auth();
-  // If user is not logged in, show restricted access component
   if (!session) return <NotAllowed />;
 
   const plan = await getPlan(groupId);
 
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <UpdatePlanForm plan={plan ?? undefined} groupId={groupId} />
+      <UpdatePlanForm plan={plan} groupId={groupId} />
     </Suspense>
   );
 }

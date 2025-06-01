@@ -1,7 +1,7 @@
 import { JobIcon } from '@/app/_components/ui/icons';
 import Link from '@/app/_components/ui/link';
 import { PlanPriorityJobs, type PlanPriority } from '@/utils/enums';
-import { type Prisma, type GroupPlan } from 'generated/prisma';
+import { type Prisma } from 'generated/prisma';
 import { type Session } from 'next-auth';
 import { FaPencil } from 'react-icons/fa6';
 import KickButton from './kick-button';
@@ -22,7 +22,9 @@ export default async function MemberList({
   session,
 }: {
   group: ExtendedGroup;
-  plan: GroupPlan;
+  plan: Prisma.GroupPlanGetPayload<{
+    select: { priority_1: true; priority_2: true; priority_3: true; priority_4: true };
+  }>;
   session: Session | null;
 }) {
   const priorities: PlanPriority[] = [plan.priority_1, plan.priority_2, plan.priority_3, plan.priority_4];

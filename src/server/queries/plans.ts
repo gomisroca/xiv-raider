@@ -4,9 +4,15 @@ import { cache } from 'react';
 
 export const getPlan = cache(async (groupId: string) => {
   try {
-    const plan = await db.groupPlan.findUnique({
+    const plan = await db.groupPlan.findUniqueOrThrow({
       where: {
         groupId,
+      },
+      select: {
+        priority_1: true,
+        priority_2: true,
+        priority_3: true,
+        priority_4: true,
       },
     });
 
