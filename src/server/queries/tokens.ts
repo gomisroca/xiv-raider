@@ -8,11 +8,14 @@ export const getToken = cache(async (tokenId: string) => {
       where: {
         id: tokenId,
       },
-      include: {
-        group: true,
+      select: {
+        group: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
-    if (!token) throw new Error('Invalid invite token');
 
     return token;
   } catch (error) {
