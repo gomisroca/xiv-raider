@@ -1,8 +1,13 @@
 import JoinButton from './join-button';
 import { auth } from '@/server/auth';
-import NotAllowed from '../_components/ui/not-allowed';
-import Link from '../_components/ui/link';
+import NotAllowed from '@/app/_components/ui/not-allowed';
+import Link from '@/app/_components/ui/link';
 import { getToken } from '@/server/queries/tokens';
+import { type Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'XIV Raider | Invite',
+};
 
 export default async function InvitePage({
   searchParams,

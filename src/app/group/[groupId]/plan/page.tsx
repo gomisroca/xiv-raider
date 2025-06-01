@@ -6,6 +6,11 @@ import LoadingSpinner from '@/app/_components/ui/spinner';
 import NotAllowed from '@/app/_components/ui/not-allowed';
 import UpdatePlanForm from './form';
 import { getPlan } from '@/server/queries/plans';
+import { type Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'XIV Raider | Update Group Plan',
+};
 
 export default async function UpdatePlan({ params }: { params: Promise<{ groupId: string }> }) {
   const { groupId } = await params;

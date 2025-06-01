@@ -1,27 +1,27 @@
 import { getCharacter } from '@/server/queries/characters';
 import { GearIcon } from '@/app/_components/ui/icons';
-import { type Prisma } from 'generated/prisma';
-import Head from 'next/head';
+import type { Metadata } from 'next';
 
-export async function getServerSideProps({ params }: { params: { characterId: string } }) {
-  const { characterId } = params;
+type Props = {
+  params: Promise<{ characterId: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { characterId } = await params;
   const character = await getCharacter(characterId);
-  if (!character) return { notFound: true };
-  return { props: { character } };
+
+  return {
+    title: `XIV Raider | ${character.name}`,
+  };
 }
 
-export default async function CharacterPage({
-  character,
-}: {
-  character: Prisma.CharacterGetPayload<{ include: { gear: true; owner: true } }>;
-}) {
+export default async function CharacterPage({ params }: Props) {
+  const { characterId } = await params;
+  const character = await getCharacter(characterId);
+  if (!character) return null;
+
   return (
     <div className="flex flex-col items-center justify-center gap-2">
-      <Head>
-        <title>
-          {character.name} - {character.owner.name}
-        </title>
-      </Head>
       <header className="flex items-center justify-between gap-2">
         <h4 className="text-xl font-bold">
           {character.name} - {character.owner.name}

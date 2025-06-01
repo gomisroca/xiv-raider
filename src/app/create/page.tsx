@@ -5,6 +5,11 @@ import { Suspense } from 'react';
 import LoadingSpinner from '@/app/_components/ui/spinner';
 import CreateGroupForm from '@/app/create/form';
 import NotAllowed from '@/app/_components/ui/not-allowed';
+import { type Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'XIV Raider | Create Group',
+};
 
 export default async function CreateGroup() {
   const session = await auth();

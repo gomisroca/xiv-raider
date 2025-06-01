@@ -32,6 +32,9 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
           )}
           {session.user.id === group.createdBy.id && (
             <div className="flex items-center gap-2">
+              <Link name="Update Group" href={`/group/${groupId}/update`} className="w-fit font-semibold uppercase">
+                Update Group
+              </Link>
               <Link name="Update Plan" href={`/group/${groupId}/plan`} className="w-fit font-semibold uppercase">
                 Update Plan
               </Link>
