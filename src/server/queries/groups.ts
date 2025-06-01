@@ -1,8 +1,9 @@
 import 'server-only';
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
+import { cache } from 'react';
 
-export async function getGroup(id: string) {
+export const getGroup = cache(async (id: string) => {
   try {
     const session = await auth();
     const group = await db.group.findUniqueOrThrow({
@@ -26,9 +27,10 @@ export async function getGroup(id: string) {
       },
     });
 
+    console.log('Found group:', group.id);
     return group;
   } catch (error) {
     console.error('Failed to get group:', error);
     throw new Error('An unexpected error occurred');
   }
-}
+});

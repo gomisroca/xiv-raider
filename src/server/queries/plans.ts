@@ -1,7 +1,8 @@
 import 'server-only';
 import { db } from '@/server/db';
+import { cache } from 'react';
 
-export async function getPlan(groupId: string) {
+export const getPlan = cache(async (groupId: string) => {
   try {
     const plan = await db.groupPlan.findUnique({
       where: {
@@ -14,4 +15,4 @@ export async function getPlan(groupId: string) {
     console.error('Failed to get group plan:', error);
     throw new Error('An unexpected error occurred');
   }
-}
+});

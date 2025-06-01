@@ -1,7 +1,8 @@
 import 'server-only';
 import { db } from '@/server/db';
+import { cache } from 'react';
 
-export async function getCharacter(id: string) {
+export const getCharacter = cache(async (id: string) => {
   try {
     const character = await db.character.findUniqueOrThrow({
       where: {
@@ -18,4 +19,4 @@ export async function getCharacter(id: string) {
     console.error('Failed to get character:', error);
     throw new Error('An unexpected error occurred');
   }
-}
+});
