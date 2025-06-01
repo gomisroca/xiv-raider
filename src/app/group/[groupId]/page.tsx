@@ -1,4 +1,4 @@
-import { getGroup } from '@/server/queries/groups';
+import { getExtendedGroup } from '@/server/queries/groups';
 import InviteButton from './invite-button';
 import { auth } from '@/server/auth';
 import NotAllowed from '@/app/_components/ui/not-allowed';
@@ -14,7 +14,7 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
 
   const session = await auth();
 
-  const group = await getGroup(groupId);
+  const group = await getExtendedGroup(groupId);
   const plan = await getPlan(group.id);
   if (!group || !plan) return null;
 
@@ -25,12 +25,12 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
       <header className="flex w-full items-center justify-between gap-2">
         <h4 className="text-2xl font-bold">{group?.name}</h4>
         <aside className="flex items-center gap-2">
-          {!group.characters.find((character) => character.ownerId === session.user.id) && (
+          {!group.characters.find((character) => character.owner.id === session.user.id) && (
             <Link name="Add Character" href={`/group/${groupId}/create`} className="w-fit font-semibold uppercase">
               Add Character
             </Link>
           )}
-          {session.user.id === group.createdBy.id && (
+          {session.user.id === group.createdById && (
             <div className="flex items-center gap-2">
               <Link name="Update Group" href={`/group/${groupId}/update`} className="w-fit font-semibold uppercase">
                 Update Group

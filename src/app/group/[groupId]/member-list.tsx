@@ -5,16 +5,7 @@ import { type Prisma } from 'generated/prisma';
 import { type Session } from 'next-auth';
 import { FaPencil } from 'react-icons/fa6';
 import KickButton from './kick-button';
-
-type ExtendedGroup = Prisma.GroupGetPayload<{
-  include: {
-    createdBy: true;
-    members: true;
-    characters: {
-      include: { owner: true; gear: true };
-    };
-  };
-}>;
+import { type ExtendedGroup } from 'types';
 
 export default async function MemberList({
   group,
@@ -36,7 +27,7 @@ export default async function MemberList({
     return { priority, chararacters };
   });
 
-  const characterOwner = session?.user.id === group.createdBy.id;
+  const characterOwner = session?.user.id === group.createdById;
 
   return (
     <div className="flex items-center justify-center gap-4">
