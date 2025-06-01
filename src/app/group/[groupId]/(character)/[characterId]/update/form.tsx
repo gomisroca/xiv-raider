@@ -77,41 +77,43 @@ export default function UpdateCharacterForm({
       <select
         name="job"
         defaultValue={character.job}
-        className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+        className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
         {Jobs.map((job) => (
           <option key={job} value={job}>
             {job}
           </option>
         ))}
       </select>
-      {GearSlots.map((slot) => (
-        <div key={slot} className="flex items-center justify-center gap-2">
-          <label>
-            <GearIcon gearSlot={slot} />
-          </label>
-          <select
-            name={slot}
-            defaultValue={character.gear.find((gear) => gear.type === slot)?.lootType}
-            className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
-            {LootTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-          <select
-            name={slot + 'Status'}
-            defaultValue={character.gear.find((gear) => gear.type === slot)?.status}
-            className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
-            {GearStatuses.map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
-          <input type="hidden" value={slot} />
-        </div>
-      ))}
+      <section className="grid grid-cols-2 space-y-1 gap-x-4 p-4">
+        {GearSlots.map((slot) => (
+          <div key={slot} className="flex items-center justify-center gap-1 last:col-start-2">
+            <label>
+              <GearIcon gearSlot={slot} />
+            </label>
+            <select
+              name={slot}
+              defaultValue={character.gear.find((gear) => gear.type === slot)?.lootType}
+              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              {LootTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+            <select
+              name={slot + 'Status'}
+              defaultValue={character.gear.find((gear) => gear.type === slot)?.status}
+              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              {GearStatuses.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+            <input type="hidden" value={slot} />
+          </div>
+        ))}
+      </section>
       <SubmitButton baseText="Update Character" pendingText="Updating..." />
     </Form>
   );

@@ -52,7 +52,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
         role="dialog"
         aria-modal="true"
         ref={dialogRef}
-        className="max-height-[500px] relative m-auto flex w-[80%] max-w-[500px] items-center justify-center rounded-lg bg-zinc-100 p-4 dark:bg-zinc-900"
+        className="max-height-[500px] relative m-auto flex w-[80%] max-w-[700px] items-center justify-center rounded-lg bg-zinc-100 p-4 dark:bg-zinc-900"
         onClose={onDismiss}>
         {children}
         <Button name="Close" onClick={onDismiss} className="absolute top-[10px] right-[10px]">
