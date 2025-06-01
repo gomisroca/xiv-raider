@@ -1,6 +1,6 @@
-import { type GearStatus, type LootType, type GearSlot, type Prisma } from 'generated/prisma';
+import { type GearStatus, type LootType, type GearSlot } from 'generated/prisma';
 import { PlanPriorityJobs, type PlanPriority } from './enums';
-import { type ExtendedCharacter } from 'types';
+import { type SelectPlan, type ExtendedCharacter } from 'types';
 
 export function getBossNeeds(
   characters: ExtendedCharacter[],
@@ -37,9 +37,7 @@ export function getBossNeeds(
 
 export function getByPriority(
   characters: ExtendedCharacter[],
-  plan: Prisma.GroupPlanGetPayload<{
-    select: { priority_1: true; priority_2: true; priority_3: true; priority_4: true };
-  }>
+  plan: SelectPlan
 ): { priority: PlanPriority; chars: ExtendedCharacter[] }[] {
   const priorities: PlanPriority[] = [plan.priority_1, plan.priority_2, plan.priority_3, plan.priority_4];
 
@@ -63,9 +61,7 @@ type SortedLoot = Record<
 
 export function getSortedCharacters(
   characters: ExtendedCharacter[],
-  plan: Prisma.GroupPlanGetPayload<{
-    select: { priority_1: true; priority_2: true; priority_3: true; priority_4: true };
-  }>,
+  plan: SelectPlan,
   bossLootMap: Record<string, { slot: GearSlot; lootType: LootType }[]>
 ): SortedLoot {
   const priorities = getByPriority(characters, plan);

@@ -7,17 +7,10 @@ import { useSetAtom } from 'jotai';
 import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
-import { type Prisma } from 'generated/prisma';
-import { type ActionReturn } from 'types';
+import { type SelectGroup, type ActionReturn } from 'types';
 import { updateGroup } from '@/actions/groups';
 
-export default function UpdateGroupForm({
-  group,
-  modal = false,
-}: {
-  group: Prisma.GroupGetPayload<{ select: { id: true; name: true } }>;
-  modal?: boolean;
-}) {
+export default function UpdateGroupForm({ group, modal = false }: { group: SelectGroup; modal?: boolean }) {
   const redirect = useRedirect();
   const setMessage = useSetAtom(messageAtom);
 

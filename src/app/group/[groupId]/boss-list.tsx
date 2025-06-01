@@ -2,8 +2,7 @@
 
 import { BossLootMap, type PlanPriority } from '@/utils/enums';
 import { JobIcon } from '@/app/_components/ui/icons';
-import { type Prisma } from 'generated/prisma';
-import { type ExtendedCharacter } from 'types';
+import { type SelectPlan, type ExtendedCharacter } from 'types';
 import LootButton from './loot-button';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
@@ -34,15 +33,7 @@ function PriorityDisplay({
   );
 }
 
-export default function BossLootList({
-  characters,
-  plan,
-}: {
-  characters: ExtendedCharacter[];
-  plan: Prisma.GroupPlanGetPayload<{
-    select: { priority_1: true; priority_2: true; priority_3: true; priority_4: true };
-  }>;
-}) {
+export default function BossLootList({ characters, plan }: { characters: ExtendedCharacter[]; plan: SelectPlan }) {
   const priorities = getByPriority(characters, plan);
   const sortedCharacters = getSortedCharacters(characters, plan, BossLootMap);
 

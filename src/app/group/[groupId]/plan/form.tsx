@@ -8,18 +8,16 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { updatePlan } from '@/actions/plans';
-import { type Priority, type Prisma } from 'generated/prisma';
+import { type Priority } from 'generated/prisma';
 import { PlanPriorities } from '@/utils/enums';
-import { type ActionReturn } from 'types';
+import { type SelectPlan, type ActionReturn } from 'types';
 
 export default function UpdatePlanForm({
   plan,
   groupId,
   modal = false,
 }: {
-  plan: Prisma.GroupPlanGetPayload<{
-    select: { priority_1: true; priority_2: true; priority_3: true; priority_4: true };
-  }>;
+  plan: SelectPlan;
   groupId: string;
   modal?: boolean;
 }) {
