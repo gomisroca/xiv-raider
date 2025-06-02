@@ -1,9 +1,9 @@
 import Modal from '@/app/_components/ui/modal';
-import { CharacterData } from '@/app/group/[groupId]/(character)/[characterId]/page';
 import MetadataSetter from '@/app/_components/ui/metadata-setter';
 import { withCharacterViewAccess } from '@/utils/wrappers/withCharacterAccess';
 import { Suspense } from 'react';
 import LoadingSpinner from '@/app/_components/ui/spinner';
+import CharacterData from '@/app/group/[groupId]/(character)/[characterId]/character-data';
 
 type Props = {
   params: Promise<{ characterId: string }>;
