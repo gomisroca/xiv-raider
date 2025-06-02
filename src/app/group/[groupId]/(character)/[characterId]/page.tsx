@@ -3,6 +3,7 @@ import { GearIcon } from '@/app/_components/ui/icons';
 import type { Metadata } from 'next';
 import { withCharacterViewAccess } from '@/utils/wrappers/withCharacterAccess';
 import { type ExtendedCharacter } from 'types';
+import { GearStatusLabels } from '@/utils/enums';
 
 type Props = {
   params: Promise<{ characterId: string }>;
@@ -40,7 +41,7 @@ function CharacterGear({ character }: { character: ExtendedCharacter }) {
       {character.gear.map((gear) => (
         <div key={gear.id} className="flex items-center justify-center gap-1 last:col-start-2">
           <GearIcon gearSlot={gear.type} />
-          <span>{gear.status}</span>
+          <span>{GearStatusLabels[gear.status] ?? gear.status}</span>
         </div>
       ))}
     </section>

@@ -2,6 +2,7 @@
 
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
+import { GearSlotLabels } from '@/utils/enums';
 import { GearSlot, GearStatus, Job, LootType } from 'generated/prisma';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
@@ -206,7 +207,7 @@ export async function updateGearSlot(updateData: z.infer<typeof UpdateGearSchema
 
     revalidatePath(`/group/${groupId}`);
     return {
-      message: `${existingGearPiece.character.name}'s ${existingGearPiece.type} status was set to ${newStatus.toLowerCase()}.`,
+      message: `${existingGearPiece.character.name}'s ${GearSlotLabels[existingGearPiece.type] ?? existingGearPiece.type} status was set to ${newStatus.toLowerCase()}.`,
       redirect: `/group/${groupId}`,
     };
   });

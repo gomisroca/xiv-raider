@@ -1,4 +1,4 @@
-import { GearSlot, type Job, LootType } from 'generated/prisma';
+import { GearSlot, type GearStatus, type Job, LootType } from 'generated/prisma';
 
 export const GearSlots = [
   'Weapon',
@@ -15,6 +15,30 @@ export const GearSlots = [
 ] as const;
 export const GearStatuses = ['Obtained', 'Unobtained'] as const;
 export const LootTypes = ['Tomestone', 'RaidDrop'] as const;
+
+export const GearSlotLabels: Record<GearSlot, string> = {
+  Weapon: 'Weapon',
+  Head: 'Head',
+  Body: 'Body',
+  Gloves: 'Gloves',
+  Legs: 'Legs',
+  Feet: 'Feet',
+  Earrings: 'Earrings',
+  Necklace: 'Necklace',
+  Bracelet: 'Bracelet',
+  Ring1: 'Ring',
+  Ring2: 'Ring',
+};
+
+export const GearStatusLabels: Record<GearStatus, string> = {
+  Obtained: '✔️',
+  Unobtained: '✖️',
+};
+
+export const LootTypeLabels: Record<LootType, string> = {
+  Tomestone: 'Tomestone',
+  RaidDrop: 'Raid Drop',
+};
 
 export const Jobs = [
   'WAR',

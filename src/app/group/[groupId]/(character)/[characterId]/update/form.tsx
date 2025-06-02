@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import Form from 'next/form';
 import SubmitButton from '@/app/_components/ui/submit-button';
 import { updateCharacter } from '@/actions/characters';
-import { GearSlots, GearStatuses, Jobs, LootTypes } from '@/utils/enums';
+import { GearSlots, GearStatuses, GearStatusLabels, Jobs, LootTypeLabels, LootTypes } from '@/utils/enums';
 import { GearSlot, type GearStatus, type LootType, type Job } from 'generated/prisma';
 import { type ActionReturn, type ExtendedCharacter } from 'types';
 import { GearIcon } from '@/app/_components/ui/icons';
@@ -96,7 +96,7 @@ export default function UpdateCharacterForm({
               className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {LootTypes.map((type) => (
                 <option key={type} value={type}>
-                  {type}
+                  {LootTypeLabels[type] ?? type}
                 </option>
               ))}
             </select>
@@ -106,7 +106,7 @@ export default function UpdateCharacterForm({
               className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {GearStatuses.map((status) => (
                 <option key={status} value={status}>
-                  {status}
+                  {GearStatusLabels[status] ?? status}
                 </option>
               ))}
             </select>

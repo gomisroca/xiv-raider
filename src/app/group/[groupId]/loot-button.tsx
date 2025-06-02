@@ -4,6 +4,7 @@ import { updateGearSlot } from '@/actions/characters';
 import Button from '@/app/_components/ui/button';
 import { GearIcon, LootIcon } from '@/app/_components/ui/icons';
 import { messageAtom } from '@/atoms/message';
+import { GearSlotLabels } from '@/utils/enums';
 import { type LootType, type GearSlot, type GearStatus } from 'generated/prisma';
 import { useSetAtom } from 'jotai';
 import { startTransition, useOptimistic } from 'react';
@@ -32,7 +33,9 @@ export default function LootButton({
     startTransition(() => {
       setOptimisticStatus(newStatus);
     });
-    const confirmed = confirm(`Are you sure you want to mark ${character.name}'s ${slot} as ${newStatus}?`);
+    const confirmed = confirm(
+      `Are you sure you want to mark ${character.name}'s ${GearSlotLabels[slot] ?? slot} as ${newStatus}?`
+    );
 
     if (!confirmed) return;
 
