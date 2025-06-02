@@ -1,12 +1,15 @@
 import JoinButton from './join-button';
-import { auth } from '@/server/auth';
-import NotAllowed from '@/app/_components/ui/not-allowed';
 import Link from '@/app/_components/ui/link';
-import { getToken } from '@/server/queries/tokens';
 import { type Metadata } from 'next';
+import { withGroupInviteViewAccess } from '@/utils/wrappers/withGroupAccess';
 
 export const metadata: Metadata = {
   title: 'XIV Raider | Invite',
+  description: 'Join a group using an invite code.',
+  openGraph: {
+    title: 'XIV Raider | Invite',
+    description: 'Join a group using an invite code.',
+  },
 };
 
 export default async function InvitePage({
@@ -17,16 +20,10 @@ export default async function InvitePage({
   const code = (await searchParams).code;
   if (!code) return null;
 
-  const session = await auth();
-  if (!session) return <NotAllowed />;
-
-  const tokenData = await getToken(code);
-  if (!tokenData) return <p>The invite code is invalid or has expired.</p>;
-
-  return (
+  return withGroupInviteViewAccess(code, (token) => (
     <div className="flex flex-col items-center justify-center gap-2">
       <p>
-        You have been invited to <span className="font-semibold">{tokenData.group.name}</span>.
+        You have been invited to <span className="font-semibold">{token.group.name}</span>.
       </p>
       <section className="flex items-center gap-2">
         <JoinButton tokenId={code} />
@@ -35,5 +32,5 @@ export default async function InvitePage({
         </Link>
       </section>
     </div>
-  );
+  ));
 }

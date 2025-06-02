@@ -1,16 +1,23 @@
 import Modal from '@/app/_components/ui/modal';
-import TitleSetter from '@/app/_components/ui/title-setter';
+import MetadataSetter from '@/app/_components/ui/metadata-setter';
 import UpdateGroupForm from '@/app/group/[groupId]/update/form';
-import { getGroup } from '@/server/queries/groups';
+import { withGroupUpdateAccess } from '@/utils/wrappers/withGroupAccess';
+import LoadingSpinner from '@/app/_components/ui/spinner';
+import { Suspense } from 'react';
 
-export default async function UpdateGroupModal({ params }: { params: Promise<{ groupId: string }> }) {
+type Props = {
+  params: Promise<{ groupId: string }>;
+};
+
+export default async function UpdateGroupModal({ params }: Props) {
   const { groupId } = await params;
-  const group = await getGroup(groupId);
 
-  return (
+  return withGroupUpdateAccess(groupId, (group) => (
     <Modal>
-      <TitleSetter title={`XIV Raider | ${group.name}`} />
-      <UpdateGroupForm group={group} modal />
+      <Suspense fallback={<LoadingSpinner />}>
+        <MetadataSetter title={`XIV Raider | ${group.name}`} description={`Update ${group.name}'s details.`} />
+        <UpdateGroupForm group={group} modal />
+      </Suspense>
     </Modal>
-  );
+  ));
 }

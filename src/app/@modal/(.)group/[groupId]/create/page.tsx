@@ -1,12 +1,23 @@
 import Modal from '@/app/_components/ui/modal';
-import TitleSetter from '@/app/_components/ui/title-setter';
+import TitleSetter from '@/app/_components/ui/metadata-setter';
 import CreateCharacterForm from '@/app/group/[groupId]/(character)/create/form';
+import { withCharacterCreateAccess } from '@/utils/wrappers/withCharacterAccess';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/app/_components/ui/spinner';
 
-export default async function CreateCharacterModal() {
-  return (
+type Props = {
+  params: Promise<{ groupId: string }>;
+};
+
+export default async function CreateCharacterModal({ params }: Props) {
+  const { groupId } = await params;
+
+  return withCharacterCreateAccess(groupId, () => (
     <Modal>
-      <TitleSetter title="XIV Raider | Create Character" />
-      <CreateCharacterForm modal />
+      <Suspense fallback={<LoadingSpinner />}>
+        <TitleSetter title="XIV Raider | Create Character" description="Create a new character." />
+        <CreateCharacterForm modal />
+      </Suspense>
     </Modal>
-  );
+  ));
 }

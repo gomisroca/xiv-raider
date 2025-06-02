@@ -1,7 +1,9 @@
 import Modal from '@/app/_components/ui/modal';
-import CharacterPage from '@/app/group/[groupId]/(character)/[characterId]/page';
-import { getCharacter } from '@/server/queries/characters';
-import TitleSetter from '@/app/_components/ui/title-setter';
+import { CharacterData } from '@/app/group/[groupId]/(character)/[characterId]/page';
+import MetadataSetter from '@/app/_components/ui/metadata-setter';
+import { withCharacterViewAccess } from '@/utils/wrappers/withCharacterAccess';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/app/_components/ui/spinner';
 
 type Props = {
   params: Promise<{ characterId: string }>;
@@ -9,11 +11,16 @@ type Props = {
 
 export default async function CharacterModal({ params }: Props) {
   const { characterId } = await params;
-  const character = await getCharacter(characterId);
-  return (
+
+  return withCharacterViewAccess(characterId, (character) => (
     <Modal>
-      <TitleSetter title={`XIV Raider | ${character.name}`} />
-      <CharacterPage params={params} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <MetadataSetter
+          title={`XIV Raider | ${character.name}`}
+          description={`Character details for ${character.name}.`}
+        />
+        <CharacterData character={character} />
+      </Suspense>
     </Modal>
-  );
+  ));
 }

@@ -1,7 +1,9 @@
 import Modal from '@/app/_components/ui/modal';
-import TitleSetter from '@/app/_components/ui/title-setter';
+import MetadataSetter from '@/app/_components/ui/metadata-setter';
 import UpdateCharacterForm from '@/app/group/[groupId]/(character)/[characterId]/update/form';
-import { getCharacter } from '@/server/queries/characters';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/app/_components/ui/spinner';
+import { withCharacterUpdateAccess } from '@/utils/wrappers/withCharacterAccess';
 
 type Props = {
   params: Promise<{ groupId: string; characterId: string }>;
@@ -9,12 +11,13 @@ type Props = {
 
 export default async function UpdateCharacterModal({ params }: Props) {
   const { groupId, characterId } = await params;
-  const character = await getCharacter(characterId);
 
-  return (
+  return withCharacterUpdateAccess(characterId, (character) => (
     <Modal>
-      <TitleSetter title={`XIV Raider | ${character.name}`} />
-      <UpdateCharacterForm character={character} groupId={groupId} modal />
+      <Suspense fallback={<LoadingSpinner />}>
+        <MetadataSetter title={`XIV Raider | ${character.name}`} description={`Update ${character.name}'s details.`} />
+        <UpdateCharacterForm character={character} groupId={groupId} modal />
+      </Suspense>
     </Modal>
-  );
+  ));
 }

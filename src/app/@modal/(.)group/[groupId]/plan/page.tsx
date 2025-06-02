@@ -1,17 +1,21 @@
 import Modal from '@/app/_components/ui/modal';
-import TitleSetter from '@/app/_components/ui/title-setter';
 import UpdatePlanForm from '@/app/group/[groupId]/plan/form';
-import { getPlan } from '@/server/queries/plans';
+import { withPlanUpdateAccess } from '@/utils/wrappers/withGroupAccess';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/app/_components/ui/spinner';
+import MetadataSetter from '@/app/_components/ui/metadata-setter';
 
 type Props = { params: Promise<{ groupId: string }> };
 
 export default async function UpdatePlanModal({ params }: Props) {
   const { groupId } = await params;
-  const plan = await getPlan(groupId);
-  return (
+
+  return withPlanUpdateAccess(groupId, (plan) => (
     <Modal>
-      <TitleSetter title="XIV Raider | Update Group Plan" />
-      <UpdatePlanForm plan={plan} groupId={groupId} modal />
+      <Suspense fallback={<LoadingSpinner />}>
+        <MetadataSetter title="XIV Raider | Update Group Plan" description="Update the plan for your group." />
+        <UpdatePlanForm plan={plan} groupId={groupId} modal />
+      </Suspense>
     </Modal>
-  );
+  ));
 }

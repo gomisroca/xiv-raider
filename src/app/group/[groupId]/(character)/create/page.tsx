@@ -1,24 +1,28 @@
-// Libraries
-import { auth } from '@/server/auth';
-// Components
 import { Suspense } from 'react';
 import LoadingSpinner from '@/app/_components/ui/spinner';
-import NotAllowed from '@/app/_components/ui/not-allowed';
 import CreateCharacterForm from './form';
 import { type Metadata } from 'next';
+import { withCharacterCreateAccess } from '@/utils/wrappers/withCharacterAccess';
+
+type Props = {
+  params: Promise<{ groupId: string }>;
+};
 
 export const metadata: Metadata = {
   title: 'XIV Raider | Create Character',
+  description: 'Create a new character.',
+  openGraph: {
+    title: 'XIV Raider | Create Character',
+    description: 'Create a new character.',
+  },
 };
 
-export default async function CreateCharacter() {
-  const session = await auth();
-  // If user is not logged in, show restricted access component
-  if (!session) return <NotAllowed />;
+export default async function CreateCharacter({ params }: Props) {
+  const { groupId } = await params;
 
-  return (
+  return withCharacterCreateAccess(groupId, () => (
     <Suspense fallback={<LoadingSpinner />}>
       <CreateCharacterForm />
     </Suspense>
-  );
+  ));
 }

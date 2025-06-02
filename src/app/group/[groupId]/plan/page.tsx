@@ -1,30 +1,26 @@
-// Libraries
-import { auth } from '@/server/auth';
-// Components
 import { Suspense } from 'react';
 import LoadingSpinner from '@/app/_components/ui/spinner';
-import NotAllowed from '@/app/_components/ui/not-allowed';
 import UpdatePlanForm from './form';
-import { getPlan } from '@/server/queries/plans';
 import { type Metadata } from 'next';
+import { withPlanUpdateAccess } from '@/utils/wrappers/withGroupAccess';
 
 type Props = { params: Promise<{ groupId: string }> };
 
 export const metadata: Metadata = {
   title: 'XIV Raider | Update Group Plan',
+  description: 'Update the plan for your group.',
+  openGraph: {
+    title: 'XIV Raider | Update Group Plan',
+    description: 'Update the plan for your group.',
+  },
 };
 
 export default async function UpdatePlan({ params }: Props) {
   const { groupId } = await params;
 
-  const session = await auth();
-  if (!session) return <NotAllowed />;
-
-  const plan = await getPlan(groupId);
-
-  return (
+  return withPlanUpdateAccess(groupId, (plan) => (
     <Suspense fallback={<LoadingSpinner />}>
       <UpdatePlanForm plan={plan} groupId={groupId} />
     </Suspense>
-  );
+  ));
 }

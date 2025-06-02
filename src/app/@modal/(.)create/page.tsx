@@ -1,12 +1,17 @@
 import Modal from '@/app/_components/ui/modal';
-import TitleSetter from '@/app/_components/ui/title-setter';
 import CreateGroupForm from '@/app/create/form';
+import MetadataSetter from '@/app/_components/ui/metadata-setter';
+import LoadingSpinner from '@/app/_components/ui/spinner';
+import { Suspense } from 'react';
+import { withSessionAccess } from '@/utils/wrappers/withSessionAccess';
 
-export default function CreateGroupModal() {
-  return (
+export default async function CreateGroupModal() {
+  return withSessionAccess(() => (
     <Modal>
-      <TitleSetter title="XIV Raider | Create Group" />
-      <CreateGroupForm modal />
+      <Suspense fallback={<LoadingSpinner />}>
+        <MetadataSetter title="XIV Raider | Create Group" description="Create a new group." />
+        <CreateGroupForm modal />
+      </Suspense>
     </Modal>
-  );
+  ));
 }
