@@ -10,12 +10,14 @@ import { startTransition, useOptimistic } from 'react';
 import { type ActionReturn, type ExtendedCharacter } from 'types';
 
 export default function LootButton({
+  groupId,
   character,
   gearId,
   slot,
   lootType,
   status,
 }: {
+  groupId: string;
   character: ExtendedCharacter;
   gearId: string;
   slot: GearSlot;
@@ -35,7 +37,7 @@ export default function LootButton({
     if (!confirmed) return;
 
     const action: ActionReturn = await updateGearSlot({
-      groupId: character.groupId,
+      groupId,
       gearId,
     });
 

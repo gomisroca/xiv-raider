@@ -33,7 +33,15 @@ function PriorityDisplay({
   );
 }
 
-export default function BossLootList({ characters, plan }: { characters: ExtendedCharacter[]; plan: SelectPlan }) {
+export default function BossLootList({
+  groupId,
+  characters,
+  plan,
+}: {
+  groupId: string;
+  characters: ExtendedCharacter[];
+  plan: SelectPlan;
+}) {
   const priorities = getByPriority(characters, plan);
   const sortedCharacters = getSortedCharacters(characters, plan, BossLootMap);
 
@@ -80,6 +88,7 @@ export default function BossLootList({ characters, plan }: { characters: Extende
                           {needs.map(({ id, slot, lootType, status }) => (
                             <LootButton
                               key={slot}
+                              groupId={groupId}
                               character={character}
                               gearId={id}
                               slot={slot}
