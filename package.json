@@ -38,6 +38,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@prisma/client": "^6.3.0",
     "@t3-oss/env-nextjs": "^0.13.4",
+    "@upstash/redis": "^1.34.9",
     "husky": "^9.1.7",
     "jotai": "^2.11.1",
     "next": "^15.0.1",
