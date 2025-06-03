@@ -1,9 +1,11 @@
 import { auth } from '@/server/auth';
 import Link from '@/app/_components/ui/link';
-import CreateButton from './create-button';
 import { type Group } from 'generated/prisma';
-import { Suspense } from 'react';
-import LoadingSpinner from './_components/ui/spinner';
+import dynamic from 'next/dynamic';
+
+const CreateButton = dynamic(() => import('./create-button'), {
+  ssr: false,
+});
 
 function GroupLink({ group }: { group: Group }) {
   return (
@@ -21,7 +23,7 @@ export default async function Home() {
   const session = await auth();
 
   return (
-    <Suspense fallback={<LoadingSpinner />}>
+    <>
       {session && session.user.groups.length > 0 ? (
         <div className="flex flex-wrap gap-2">
           {session.user.groups.map((group) => (
@@ -33,6 +35,6 @@ export default async function Home() {
       ) : (
         <CreateButton session={session} />
       )}
-    </Suspense>
+    </>
   );
 }

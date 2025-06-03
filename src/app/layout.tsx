@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 
 // Libraries
+import dynamic from 'next/dynamic';
 import { type Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -9,8 +10,10 @@ import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'next-themes';
 import { Provider as JotaiProvider } from 'jotai';
 // Components
-import Navbar from '@/app/_components/navbar';
-import Footer from '@/app/_components/footer';
+const Navbar = dynamic(() => import('@/app/_components/navbar'));
+const Footer = dynamic(() => import('@/app/_components/footer'), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: 'XIV Raider',
