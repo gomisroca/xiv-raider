@@ -15,8 +15,12 @@ export default function CreateButton({
   size?: 'normal' | 'small';
 }) {
   const handleCreate = async () => {
-    if (!session && window.confirm('You must be logged in to create a group.')) await signIn('discord');
-    else redirect('/create');
+    if (!session) {
+      const confirmed = confirm('You must be logged in to create a group.');
+      if (!confirmed) return;
+
+      await signIn('discord');
+    } else redirect('/create');
   };
 
   return (

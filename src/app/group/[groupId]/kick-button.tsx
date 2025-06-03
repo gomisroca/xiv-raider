@@ -21,7 +21,7 @@ export default function KickButton({
   const setMessage = useSetAtom(messageAtom);
 
   const action = async () => {
-    const confirmed = confirm(`Are you sure you want to kick ${memberName}  from the group?`);
+    const confirmed = confirm(`Are you sure you want to kick ${memberName} from the group?`);
     if (!confirmed) return;
 
     // Call the removeMember action with the form data
