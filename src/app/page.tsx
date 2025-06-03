@@ -1,11 +1,7 @@
 import { auth } from '@/server/auth';
 import Link from '@/app/_components/ui/link';
 import { type Group } from 'generated/prisma';
-import dynamic from 'next/dynamic';
-
-const CreateButton = dynamic(() => import('./create-button'), {
-  ssr: false,
-});
+import CreateButton from './create-button';
 
 function GroupLink({ group }: { group: Group }) {
   return (
