@@ -11,9 +11,7 @@ import { ThemeProvider } from 'next-themes';
 import { Provider as JotaiProvider } from 'jotai';
 // Components
 const Navbar = dynamic(() => import('@/app/_components/navbar'));
-const Footer = dynamic(() => import('@/app/_components/footer'), {
-  ssr: false,
-});
+import Footer from '@/app/_components/footer';
 
 export const metadata: Metadata = {
   title: 'XIV Raider',
