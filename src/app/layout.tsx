@@ -30,10 +30,17 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'XIV Raider',
     description: 'Raid management simplified.',
-    images: ['/og.png'],
+    images: [
+      {
+        url: '/og.png',
+        width: 64,
+        height: 64,
+        alt: 'XIV Raider Twitter Image',
+      },
+    ],
   },
 };
 
