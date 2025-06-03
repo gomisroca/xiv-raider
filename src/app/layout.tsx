@@ -3,6 +3,7 @@ import '@/styles/globals.css';
 // Libraries
 import { type Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from 'next-themes';
 import { Provider as JotaiProvider } from 'jotai';
 // Components
@@ -69,6 +70,7 @@ export default async function RootLayout({
             </div>
           </JotaiProvider>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
