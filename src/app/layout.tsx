@@ -52,7 +52,7 @@ const worksans = Work_Sans({
   weight: ['400', '600'],
 });
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   modal,
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
