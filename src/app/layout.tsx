@@ -68,9 +68,9 @@ export default async function RootLayout({
               <main className="flex flex-1 items-center justify-center p-4 px-2 md:px-0">{children}</main>
               <Footer />
             </div>
+            <SpeedInsights />
           </JotaiProvider>
         </ThemeProvider>
-        <SpeedInsights />
       </body>
     </html>
   );
