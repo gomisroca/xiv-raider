@@ -3,6 +3,7 @@ import '@/styles/globals.css';
 // Libraries
 import { type Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from 'next-themes';
 import { Provider as JotaiProvider } from 'jotai';
 // Components
@@ -13,6 +14,35 @@ export const metadata: Metadata = {
   title: 'XIV Raider',
   description: 'Raid management simplified.',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
+  openGraph: {
+    title: 'XIV Raider',
+    description: 'Raid management simplified.',
+    url: 'https://xiv-raider.vercel.app',
+    siteName: 'XIV Raider',
+    images: [
+      {
+        url: '/og.png',
+        width: 64,
+        height: 64,
+        alt: 'XIV Raider Open Graph Image',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'XIV Raider',
+    description: 'Raid management simplified.',
+    images: [
+      {
+        url: '/og.png',
+        width: 64,
+        height: 64,
+        alt: 'XIV Raider Twitter Image',
+      },
+    ],
+  },
 };
 
 const worksans = Work_Sans({
@@ -40,6 +70,7 @@ export default async function RootLayout({
             </div>
           </JotaiProvider>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
