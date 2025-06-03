@@ -13,6 +13,28 @@ export const metadata: Metadata = {
   title: 'XIV Raider',
   description: 'Raid management simplified.',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
+  openGraph: {
+    title: 'XIV Raider',
+    description: 'Raid management simplified.',
+    url: 'https://xiv-raider.vercel.app',
+    siteName: 'XIV Raider',
+    images: [
+      {
+        url: '/og.png',
+        width: 64,
+        height: 64,
+        alt: 'XIV Raider Open Graph Image',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'XIV Raider',
+    description: 'Raid management simplified.',
+    images: ['/og.png'],
+  },
 };
 
 const worksans = Work_Sans({
