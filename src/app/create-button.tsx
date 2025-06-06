@@ -20,7 +20,7 @@ export default function CreateButton({
       name="Create group"
       className={twMerge(
         'group max-w-xl text-2xl font-semibold uppercase md:text-4xl',
-        size === 'small' ? 'h-30 w-72 md:h-40 md:w-full' : 'h-96 w-72 md:h-86 md:w-full'
+        size === 'small' ? 'h-30 w-full md:h-40' : 'h-96 w-full md:h-86'
       )}>
       <GoPlus
         className={twMerge(

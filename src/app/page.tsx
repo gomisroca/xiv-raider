@@ -10,7 +10,7 @@ function GroupLink({ group }: { group: Group }) {
       key={group.id}
       href={`/group/${group.id}`}
       name={group.name}
-      className="h-96 w-72 max-w-xl overflow-hidden text-4xl font-semibold uppercase md:h-86 md:w-full md:text-6xl">
+      className="h-45 w-full max-w-xl overflow-hidden text-4xl font-semibold uppercase md:h-64 md:w-full md:text-6xl">
       {group.name}
     </Link>
   );
@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <>
       {session ? (
-        <div className="flex w-full flex-col items-center justify-center gap-2">
+        <div className="flex w-full flex-col items-center justify-center gap-2 px-4 md:px-0">
           <div className="flex w-full flex-wrap items-center justify-center gap-2">
             {session.user.groups.map((group) => (
               <GroupLink key={group.id} group={group} />
