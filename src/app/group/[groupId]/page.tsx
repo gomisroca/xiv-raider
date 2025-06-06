@@ -7,11 +7,12 @@ import DeleteButton from './delete-button';
 import { withGroupViewAccess } from '@/utils/wrappers/withGroupAccess';
 import { type ExtendedGroup } from 'types';
 import { type Session } from 'next-auth';
+import { Title } from '@/app/_components/ui/title';
 
 async function GroupHeader({ group, session }: { group: ExtendedGroup; session: Session }) {
   return (
     <header className="flex w-full flex-col items-start justify-start gap-y-2 sm:gap-y-4 md:items-center md:justify-center">
-      <h4 className="text-2xl font-bold">{group?.name}</h4>
+      <Title content={group?.name} />
       <aside className="flex flex-wrap items-center justify-start gap-1 sm:gap-2 md:justify-center">
         {!group.characters.find((character) => character.owner.id === session.user.id) && (
           <Link

@@ -1,15 +1,14 @@
-import { GearIcon } from '@/app/_components/ui/icons';
+import { GearIcon, JobIcon } from '@/app/_components/ui/icons';
 import { type ExtendedCharacter } from 'types';
 import { GearStatusLabels } from '@/utils/enums';
+import { Title } from '@/app/_components/ui/title';
 
 function CharacterDetails({ character }: { character: ExtendedCharacter }) {
   return (
     <header className="flex flex-col items-center justify-center gap-1">
-      <h4 className="text-xl font-bold">{character.name}</h4>
-      <div className="flex items-center gap-2">
-        <p className="font-semibold text-zinc-400">{character.owner.name}</p>
-        <p className="text-sm text-zinc-400">{character.job}</p>
-      </div>
+      <JobIcon job={character.job} />
+      <Title content={character.name} />
+      <p className="font-semibold text-zinc-400">{character.owner.name}</p>
     </header>
   );
 }
