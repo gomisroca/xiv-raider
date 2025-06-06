@@ -166,7 +166,6 @@ export async function removeMember(removeData: { groupId: string; memberId: stri
         name: true,
       },
     });
-    if (!existingCharacter) throw new Error('Character not found');
 
     const isGroupCreator = existingGroup.createdById === session.user.id;
     const isSelfRemoving = removeData.memberId === session.user.id;
@@ -207,15 +206,16 @@ export async function removeMember(removeData: { groupId: string; memberId: stri
       },
     });
 
-    await trx.character.delete({
-      where: {
-        id: existingCharacter.id,
-      },
-    });
+    if (existingCharacter)
+      await trx.character.delete({
+        where: {
+          id: existingCharacter.id,
+        },
+      });
 
     revalidatePath(`/group/${removeData.groupId}`);
     return {
-      message: `${existingCharacter.name} was removed from ${existingGroup.name}.`,
+      message: `${session.user.name} was removed from ${existingGroup.name}.`,
       redirect: `/group/${removeData.groupId}`,
     };
   });

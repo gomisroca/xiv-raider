@@ -28,7 +28,10 @@ export default function DeleteButton({ groupId }: { groupId: string }) {
   };
 
   return (
-    <Button onClick={() => action()} name="Delete" className="w-fit bg-red-500 font-semibold uppercase dark:bg-red-600">
+    <Button
+      onClick={() => action()}
+      name="Delete"
+      className="w-fit bg-red-500 text-sm font-semibold uppercase md:text-base dark:bg-red-600">
       Delete Group
     </Button>
   );

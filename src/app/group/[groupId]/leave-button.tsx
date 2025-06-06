@@ -28,7 +28,10 @@ export default function LeaveButton({ groupId, memberId }: { groupId: string; me
   };
 
   return (
-    <Button onClick={() => action()} name="Leave" className="w-fit bg-red-500 font-semibold uppercase dark:bg-red-600">
+    <Button
+      onClick={() => action()}
+      name="Leave"
+      className="w-fit bg-red-500 text-sm font-semibold uppercase md:text-base dark:bg-red-600">
       Leave Group
     </Button>
   );

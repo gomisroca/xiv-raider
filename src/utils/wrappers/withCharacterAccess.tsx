@@ -27,7 +27,7 @@ export async function withCharacterCreateAccess(
   if (!group) return notFound();
 
   const session = await auth();
-  if (!session || group.members.some((m) => m.id === session.user.id)) return <NotAllowed />;
+  if (!session || group.members.some((m) => m.id !== session.user.id)) return <NotAllowed />;
 
   return await callback(true);
 }

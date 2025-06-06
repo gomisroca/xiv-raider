@@ -77,15 +77,15 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
           </option>
         ))}
       </select>
-      <section className="grid grid-cols-2 space-y-1 gap-x-4 p-4">
+      <section className="grid w-full grid-cols-1 space-y-1 gap-x-4 p-4 md:w-auto md:grid-cols-2">
         {GearSlots.map((slot) => (
-          <div key={slot} className="flex items-center justify-center gap-1 last:col-start-2">
+          <div key={slot} className="flex items-center justify-center gap-1 md:last:col-start-2">
             <label>
               <GearIcon gearSlot={slot} />
             </label>
             <select
               name={slot}
-              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {LootTypes.map((type) => (
                 <option key={type} value={type}>
                   {LootTypeLabels[type] ?? type}
@@ -94,7 +94,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
             </select>
             <select
               name={slot + 'Status'}
-              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {GearStatuses.map((status) => (
                 <option key={status} value={status}>
                   {GearStatusLabels[status] ?? status}

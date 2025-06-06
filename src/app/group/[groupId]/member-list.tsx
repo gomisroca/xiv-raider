@@ -27,9 +27,9 @@ export default async function MemberList({
   const characterOwner = session?.user.id === group.createdById;
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="grid grid-cols-1 items-center justify-center gap-2 md:grid-cols-2 md:gap-4">
       {charactersByPriority.map(({ priority, chararacters }, idx) => (
-        <div key={priority} className="text-sm">
+        <div key={priority} className="w-full text-sm">
           <p className="font-medium">
             Priority #{idx + 1}: <span className="text-lg font-semibold">{priority}</span>
           </p>
@@ -41,7 +41,7 @@ export default async function MemberList({
                   href={`/group/${group.id}/${character.id}`}
                   className={`flex flex-1 items-center justify-start gap-1 font-semibold uppercase ${characterOwner && 'rounded-r-none'}`}>
                   <JobIcon job={character.job} />
-                  <h6>{character.name}</h6>
+                  <span>{character.name}</span>
                 </Link>
                 {characterOwner && (
                   <Link

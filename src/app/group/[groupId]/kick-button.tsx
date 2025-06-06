@@ -40,7 +40,7 @@ export default function KickButton({
     <Button
       onClick={() => action()}
       name="Kick"
-      className="ml-1 w-fit bg-red-500 font-semibold uppercase dark:bg-red-600">
+      className="ml-1 w-fit bg-red-500 text-sm font-semibold uppercase md:text-base dark:bg-red-600">
       <FaTrash />
     </Button>
   );

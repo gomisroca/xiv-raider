@@ -59,7 +59,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
     <html lang="en" className={worksans.className} suppressHydrationWarning>
-      <body className="bg-zinc-50 text-zinc-800 dark:bg-neutral-950 dark:text-zinc-200">
+      <body className="bg-zinc-50 text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
         <ThemeProvider attribute="class">
           <JotaiProvider>
             <div id="modal-root" />
@@ -71,6 +71,7 @@ export default function RootLayout({
               <main className="flex flex-1 items-center justify-center p-4 px-2 md:px-0">{children}</main>
               <Footer />
             </div>
+            <SpeedInsights />
           </JotaiProvider>
         </ThemeProvider>
         <SpeedInsights />

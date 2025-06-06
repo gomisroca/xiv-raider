@@ -1,6 +1,5 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Button from './_components/ui/button';
 import type { Session } from 'next-auth';
@@ -14,27 +13,19 @@ export default function CreateButton({
   session: Session | null;
   size?: 'normal' | 'small';
 }) {
-  const handleCreate = async () => {
-    if (!session) {
-      const confirmed = confirm('You must be logged in to create a group.');
-      if (!confirmed) return;
-
-      await signIn('discord');
-    } else redirect('/create');
-  };
-
+  if (!session) return null;
   return (
     <Button
-      onClick={handleCreate}
+      onClick={() => redirect('/create')}
       name="Create group"
       className={twMerge(
-        'group w-full max-w-xl text-2xl font-semibold uppercase md:h-86 md:text-4xl',
-        size === 'small' ? 'h-16 w-20 md:h-20' : 'h-44'
+        'group max-w-xl text-2xl font-semibold uppercase md:text-4xl',
+        size === 'small' ? 'h-30 w-full md:h-40' : 'h-96 w-full md:h-86'
       )}>
       <GoPlus
         className={twMerge(
-          'pointer-events-none h-72 w-72 transition duration-200 ease-in-out group-active:scale-75',
-          size === 'small' ? 'h-20 w-20' : 'h-72 w-72'
+          'pointer-events-none transition duration-200 ease-in-out group-active:scale-75',
+          size === 'small' ? 'h-30 w-30' : 'h-64 w-64 md:h-72 md:w-72'
         )}
       />
     </Button>

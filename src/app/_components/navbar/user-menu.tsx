@@ -10,11 +10,11 @@ export default function UserMenu({ session }: { session: Session | null }) {
   return (
     <>
       {session ? (
-        <Button onClick={() => signOut()} name="User menu">
+        <Button onClick={() => signOut()} name="User menu" className="shadow-md">
           <MdExitToApp size={20} />
         </Button>
       ) : (
-        <Button onClick={() => signIn('discord')} name="Log in">
+        <Button onClick={() => signIn('discord')} name="Log in" className="shadow-md">
           <FaKey size={20} />
         </Button>
       )}
