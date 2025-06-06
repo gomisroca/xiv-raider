@@ -1,7 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 
 export async function Title({ content, size = 'normal' }: { content: string; size?: 'normal' | 'large' }) {
-  console.log(content);
   return (
     <div className="px-4 text-center">
       <h2
