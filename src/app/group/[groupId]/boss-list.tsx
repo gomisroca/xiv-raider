@@ -27,7 +27,7 @@ function PriorityDisplay({
   const bgColor = priorityColors[priority - 1] ?? 'bg-orange-400 dark:bg-orange-600';
 
   return (
-    <span className={`flex w-10 items-center justify-center gap-1 rounded-lg font-semibold ${bgColor}`}>
+    <span className={`flex w-6 items-center justify-center gap-1 rounded-lg font-semibold md:w-8 ${bgColor}`}>
       {priority}
     </span>
   );
@@ -55,7 +55,7 @@ export default function BossLootList({
   };
 
   return (
-    <div className="flex flex-col items-start justify-start gap-2">
+    <div className="flex w-full max-w-4xl flex-col items-start justify-start gap-2">
       {Object.entries(sortedCharacters).map(([boss, needs]) => {
         const isCollapsed = collapsedBosses[boss];
 
@@ -78,13 +78,13 @@ export default function BossLootList({
                     {needs.map(({ character, needs }) => (
                       <li
                         key={character.id}
-                        className="flex w-full items-center justify-between gap-1 py-1 transition-colors duration-200 ease-in-out odd:bg-zinc-100 hover:bg-zinc-300 odd:dark:bg-zinc-900 hover:dark:bg-zinc-700">
+                        className="flex w-full flex-col items-start justify-between gap-1 p-1 transition-colors duration-200 ease-in-out odd:bg-zinc-100 hover:bg-zinc-300 md:flex-row md:items-center odd:dark:bg-zinc-900 hover:dark:bg-zinc-700">
                         <section className="flex items-center justify-start gap-1">
                           <PriorityDisplay priorities={priorities} character={character} />
                           <JobIcon job={character.job} />
                           <strong>{character.name}</strong>
                         </section>
-                        <section className="flex justify-end gap-1">
+                        <section className="flex justify-end gap-1 md:gap-2">
                           {needs.map(({ id, slot, lootType, status }) => (
                             <LootButton
                               key={slot}
