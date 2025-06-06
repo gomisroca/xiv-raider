@@ -59,7 +59,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
     <html lang="en" className={worksans.className} suppressHydrationWarning>
-      <body className="bg-zinc-50 text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
+      <body className="bg-zinc-50 bg-radial-[at_50%_0%] from-zinc-900/10 via-zinc-50 via-80% text-zinc-800 dark:bg-zinc-950 dark:from-zinc-100/10 dark:via-zinc-950 dark:text-zinc-200">
         <ThemeProvider attribute="class">
           <JotaiProvider>
             <div id="modal-root" />
