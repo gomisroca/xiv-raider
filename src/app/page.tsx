@@ -1,8 +1,8 @@
 import { auth } from '@/server/auth';
 import Link from '@/app/_components/ui/link';
-import CreateButton from './create-button';
 import { type Group } from 'generated/prisma';
 import LoginButton from './_components/ui/login-button';
+import CreateButton from './create-button';
 
 function GroupLink({ group }: { group: Group }) {
   return (

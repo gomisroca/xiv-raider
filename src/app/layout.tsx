@@ -1,13 +1,16 @@
 import '@/styles/globals.css';
 
 // Libraries
+import dynamic from 'next/dynamic';
 import { type Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
+// Providers
 import { ThemeProvider } from 'next-themes';
 import { Provider as JotaiProvider } from 'jotai';
 // Components
-import Navbar from '@/app/_components/navbar';
+const Navbar = dynamic(() => import('@/app/_components/navbar'));
 import Footer from '@/app/_components/footer';
 
 export const metadata: Metadata = {
@@ -50,7 +53,7 @@ const worksans = Work_Sans({
   weight: ['400', '600'],
 });
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   modal,
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
@@ -71,6 +74,8 @@ export default async function RootLayout({
             <SpeedInsights />
           </JotaiProvider>
         </ThemeProvider>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
