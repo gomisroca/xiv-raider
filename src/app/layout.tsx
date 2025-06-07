@@ -12,6 +12,7 @@ import { Provider as JotaiProvider } from 'jotai';
 // Components
 const Navbar = dynamic(() => import('@/app/_components/navbar'));
 import Footer from '@/app/_components/footer';
+import { ContentBackground, LayoutBackground } from '@/app/_components/ui/background';
 
 export const metadata: Metadata = {
   title: 'XIV Raider',
@@ -59,18 +60,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
     <html lang="en" className={worksans.className} suppressHydrationWarning>
-      <body className="bg-zinc-50 bg-radial-[at_50%_0%] from-zinc-900/10 via-zinc-50 via-80% text-zinc-800 dark:bg-zinc-950 dark:from-zinc-100/10 dark:via-zinc-950 dark:text-zinc-200">
-        <ThemeProvider attribute="class">
+      <body className="text-zinc-800 dark:text-zinc-200">
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <JotaiProvider>
             <div id="modal-root" />
             {modal}
-            <div className="flex min-h-screen flex-col">
+            <LayoutBackground>
               <header>
                 <Navbar />
               </header>
-              <main className="flex flex-1 items-center justify-center p-4 px-2 md:px-0">{children}</main>
+              <ContentBackground>{children}</ContentBackground>
               <Footer />
-            </div>
+            </LayoutBackground>
             <SpeedInsights />
           </JotaiProvider>
         </ThemeProvider>

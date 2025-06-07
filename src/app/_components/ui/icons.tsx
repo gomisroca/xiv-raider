@@ -16,14 +16,8 @@ export function JobIcon({ job }: { job: Job }) {
 export function GearIcon({ gearSlot }: { gearSlot: string }) {
   if (gearSlot === 'Ring1' || gearSlot === 'Ring2') gearSlot = 'Ring';
   return (
-    <div className="flex h-[20px] w-[20px] items-center justify-center rounded-lg bg-zinc-100 md:h-[30px] md:w-[30px] dark:bg-zinc-900">
-      <Image
-        alt={gearSlot}
-        src={`/items/${gearSlot}.png`}
-        width="25"
-        height="25"
-        className="brightness-0 dark:brightness-200"
-      />
+    <div className="flex h-[20px] w-[20px] items-center justify-center md:h-[30px] md:w-[30px]">
+      <Image alt={gearSlot} src={`/items/${gearSlot}.png`} width="25" height="25" />
     </div>
   );
 }

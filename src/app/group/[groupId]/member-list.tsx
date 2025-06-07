@@ -27,19 +27,16 @@ export default async function MemberList({
   const characterOwner = session?.user.id === group.createdById;
 
   return (
-    <div className="grid grid-cols-1 items-center justify-center gap-2 md:grid-cols-2 md:gap-4">
+    <div className="grid w-full grid-cols-1 items-center justify-center gap-2 md:grid-cols-2 md:gap-4">
       {charactersByPriority.map(({ priority, chararacters }, idx) => (
-        <div key={priority} className="w-full text-sm">
+        <div key={priority} className="flex w-full flex-col items-center justify-center gap-y-2 text-sm">
           <p className="font-medium">
-            Priority #{idx + 1}: <span className="text-lg font-semibold">{priority}</span>
+            Priority #{idx + 1}: <span className="text-lg font-semibold uppercase">{priority}</span>
           </p>
-          <ul className="flex list-none flex-col gap-1">
+          <ul className="flex list-none flex-col gap-2">
             {chararacters.map((character) => (
-              <li key={character.id} className="flex w-full items-center justify-start">
-                <Link
-                  name={`View ${character.name}`}
-                  href={`/group/${group.id}/${character.id}`}
-                  className={`flex flex-1 items-center justify-start gap-1 font-semibold uppercase ${characterOwner && 'rounded-r-none'}`}>
+              <li key={character.id} className="flex items-center justify-start gap-1">
+                <Link name={`View ${character.name}`} href={`/group/${group.id}/${character.id}`} className="w-fit">
                   <JobIcon job={character.job} />
                   <span>{character.name}</span>
                 </Link>
@@ -47,7 +44,7 @@ export default async function MemberList({
                   <Link
                     name={`Update ${character.name}`}
                     href={`/group/${group.id}/${character.id}/update`}
-                    className="rounded-l-none border-l-1 border-zinc-400 font-semibold uppercase">
+                    className="border-zinc-400 font-semibold uppercase">
                     <FaPencil />
                   </Link>
                 )}

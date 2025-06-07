@@ -7,6 +7,7 @@ import LootButton from './loot-button';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { getByPriority, getSortedCharacters } from '@/utils/mappers';
+import { Title } from '@/app/_components/ui/title';
 
 function PriorityDisplay({
   priorities,
@@ -27,7 +28,7 @@ function PriorityDisplay({
   const bgColor = priorityColors[priority - 1] ?? 'bg-orange-400 dark:bg-orange-600';
 
   return (
-    <span className={`flex w-6 items-center justify-center gap-1 rounded-lg font-semibold md:w-8 ${bgColor}`}>
+    <span className={`flex w-6 skew-x-6 skew-y-3 items-center justify-center gap-1 font-semibold md:w-8 ${bgColor}`}>
       {priority}
     </span>
   );
@@ -62,7 +63,7 @@ export default function BossLootList({
         return (
           <div key={boss} className="w-full">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">{boss}</h2>
+              <Title content={boss} className="text-2xl text-inherit md:text-3xl" />
               <button
                 onClick={() => toggleCollapse(boss)}
                 className="cursor-pointer p-2 text-sm text-sky-500 hover:underline dark:text-sky-600">
@@ -78,13 +79,13 @@ export default function BossLootList({
                     {needs.map(({ character, needs }) => (
                       <li
                         key={character.id}
-                        className="flex w-full flex-col items-start justify-between gap-1 p-1 transition-colors duration-200 ease-in-out odd:bg-zinc-100 hover:bg-zinc-300 md:flex-row md:items-center odd:dark:bg-zinc-900 hover:dark:bg-zinc-700">
+                        className="flex w-full flex-col items-start justify-between gap-2 p-2 transition-colors duration-200 ease-in-out odd:bg-zinc-100 hover:bg-zinc-300 md:flex-row md:items-center md:gap-0 odd:dark:bg-zinc-900 hover:dark:bg-zinc-700">
                         <section className="flex items-center justify-start gap-1">
                           <PriorityDisplay priorities={priorities} character={character} />
                           <JobIcon job={character.job} />
                           <strong>{character.name}</strong>
                         </section>
-                        <section className="flex justify-end gap-1 md:gap-2">
+                        <section className="flex justify-end gap-1 md:gap-3">
                           {needs.map(({ id, slot, lootType, status }) => (
                             <LootButton
                               key={slot}

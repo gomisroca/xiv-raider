@@ -31,7 +31,8 @@ export default function DeleteButton({ groupId }: { groupId: string }) {
     <Button
       onClick={() => action()}
       name="Delete"
-      className="w-fit bg-red-500 text-sm font-semibold uppercase md:text-base dark:bg-red-600">
+      className="w-fit text-sm font-semibold uppercase *:px-2 hover:bg-red-500 md:text-base hover:dark:bg-red-600"
+      skew="high">
       Delete Group
     </Button>
   );

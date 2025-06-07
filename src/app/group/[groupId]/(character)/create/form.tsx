@@ -62,7 +62,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
       action={async (formData) => formAction(formData)}
       className="flex flex-col items-center justify-center gap-2">
       <input
-        className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700"
+        className="border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700"
         type="text"
         name="name"
         placeholder="My New Character"
@@ -70,7 +70,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
       />
       <select
         name="job"
-        className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+        className="cursor-pointer border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
         {Jobs.map((job) => (
           <option key={job} value={job}>
             {job}
@@ -85,7 +85,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
             </label>
             <select
               name={slot}
-              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              className="cursor-pointer border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {LootTypes.map((type) => (
                 <option key={type} value={type}>
                   {LootTypeLabels[type] ?? type}
@@ -94,7 +94,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
             </select>
             <select
               name={slot + 'Status'}
-              className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              className="cursor-pointer border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {GearStatuses.map((status) => (
                 <option key={status} value={status}>
                   {GearStatusLabels[status] ?? status}

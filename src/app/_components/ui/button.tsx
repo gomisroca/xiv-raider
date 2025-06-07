@@ -7,20 +7,6 @@
  * <Button type="submit" name="Submit" onClick={() => console.log('Button clicked!')}>Submit</Button>
  */
 
-const pulseAnimation = `
-  @keyframes pulse-scale {
-    0% {
-      transform: scale(1) rotate(0deg);
-    }
-    50% {
-      transform: scale(1.05) rotate(1deg);
-    }
-    100% {
-      transform: scale(1) rotate(0deg);
-    }
-  }
-`;
-
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
@@ -28,14 +14,19 @@ interface Props {
   type?: 'submit' | 'button';
   name: string;
   disabled?: boolean;
+  skew?: 'normal' | 'high';
   children: React.ReactNode;
   className?: string;
 }
 
-function Button({ onClick, type = 'button', name, disabled = false, children, className }: Props) {
+function Button({ onClick, type = 'button', name, disabled = false, skew = 'normal', children, className }: Props) {
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: pulseAnimation }} />
+    <div
+      className={twMerge(
+        'group flex h-[50px] w-[55px] cursor-pointer bg-black p-2 transition duration-200 ease-in-out hover:z-10 hover:scale-125 active:scale-90 active:skew-2 active:shadow-lg dark:bg-white',
+        skew === 'high' ? 'skew-x-6 skew-y-3 hover:skew-5' : 'skew-x-2 skew-y-1 hover:skew-3',
+        className
+      )}>
       <button
         onClick={onClick}
         type={type}
@@ -43,14 +34,13 @@ function Button({ onClick, type = 'button', name, disabled = false, children, cl
         aria-disabled={disabled}
         aria-label={name}
         className={twMerge(
-          'flex h-[36px] w-[36px] cursor-pointer items-center justify-center rounded-lg bg-sky-500 p-2 text-zinc-50 transition duration-200 ease-in-out *:pointer-events-none *:text-zinc-50 *:opacity-80 hover:animate-[pulse-scale_1.5s_ease-in-out_infinite] hover:*:opacity-100 active:scale-90 active:rotate-[-1deg] active:animate-none active:shadow-lg dark:bg-sky-600 dark:text-zinc-200 dark:*:text-zinc-200',
-          className,
+          'flex w-full skew-1 cursor-pointer items-center justify-center bg-sky-500 font-semibold text-black uppercase transition duration-200 ease-in-out *:pointer-events-none *:w-full *:text-black group-hover:bg-sky-400 dark:bg-sky-600 dark:text-white dark:*:text-white dark:group-hover:bg-sky-500',
           disabled &&
-            'cursor-not-allowed bg-transparent opacity-50 hover:animate-none hover:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:active:bg-transparent'
+            'cursor-not-allowed bg-transparent opacity-50 hover:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:active:bg-transparent'
         )}>
         {children}
       </button>
-    </>
+    </div>
   );
 }
 

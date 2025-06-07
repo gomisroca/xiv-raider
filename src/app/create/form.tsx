@@ -46,7 +46,7 @@ export default function CreateGroupForm({ modal = false }: { modal?: boolean }) 
       action={async (formData) => formAction(formData)}
       className="flex flex-col items-center justify-center gap-2">
       <input
-        className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700"
+        className="border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700"
         type="text"
         name="name"
         placeholder="My New Group"

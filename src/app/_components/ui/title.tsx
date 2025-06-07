@@ -1,25 +1,34 @@
 import { twMerge } from 'tailwind-merge';
 
-export async function Title({ content, size = 'normal' }: { content: string; size?: 'normal' | 'large' }) {
+export function Title({
+  content,
+  size = 'normal',
+  className,
+}: {
+  content: string;
+  size?: 'normal' | 'large';
+  className?: string;
+}) {
+  const mainSize = size === 'normal' ? 'text-2xl md:text-3xl' : 'text-2xl md:text-5xl';
+
   return (
-    <div className="px-4 text-center">
+    <div className={twMerge('pointer-events-none relative skew-1 text-center', className)}>
       <h2
         className={twMerge(
-          'flex items-center gap-2 font-semibold tracking-widest uppercase',
-          size === 'normal' ? 'text-2xl md:text-3xl' : 'text-2xl md:text-5xl'
+          'relative z-10 flex items-center justify-start gap-2 font-semibold tracking-widest uppercase',
+          mainSize
         )}>
         {content.split(' ').map((word, wordIndex) => (
-          <span key={wordIndex} className="flex items-start">
-            <span
-              className={twMerge('text-sky-500', size === 'normal' ? 'text-3xl md:text-4xl' : 'text-3xl md:text-6xl')}>
-              {word[0]}
+          <span key={wordIndex} className="relative inline-block">
+            <span className="relative text-black dark:text-white">
+              <span className={mainSize}>{word[0]}</span>
+              <span>{word.slice(1)}</span>
             </span>
-            <span>{word.slice(1)}</span>
+
             {wordIndex < content.split(' ').length - 1 && ' '}
           </span>
         ))}
       </h2>
-      <div className="mx-auto h-1 w-24 rounded-full bg-sky-500"></div>
     </div>
   );
 }

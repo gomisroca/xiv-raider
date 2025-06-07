@@ -17,7 +17,11 @@ function ThemeButton() {
   const { theme, setTheme } = useTheme(); // Hook to get and set the theme using next-themes
 
   return (
-    <Button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} name="Theme Button" className="shadow-md">
+    <Button
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      name="Theme Button"
+      skew="high"
+      className="-translate-y-20 shadow-md">
       <FaMoon
         name="light"
         size={20}

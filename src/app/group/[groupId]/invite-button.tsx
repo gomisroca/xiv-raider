@@ -17,10 +17,7 @@ export default function InviteButton({ groupId }: { groupId: string }) {
   };
 
   return (
-    <Button
-      onClick={() => action(groupId)}
-      name="Invite"
-      className="w-fit text-sm font-semibold uppercase md:text-base">
+    <Button onClick={() => action(groupId)} name="Invite" className="w-fit text-sm *:px-2 md:text-base" skew="high">
       Invite
     </Button>
   );
