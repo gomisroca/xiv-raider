@@ -3,6 +3,8 @@ import Link from '@/app/_components/ui/link';
 import { type Group } from 'generated/prisma';
 import LoginButton from './_components/ui/login-button';
 import CreateButton from './create-button';
+import { Title } from './_components/ui/title';
+import { FaDiscord } from 'react-icons/fa6';
 
 function GroupLink({ group }: { group: Group }) {
   return (
@@ -22,23 +24,24 @@ export default async function Home() {
   return (
     <>
       {session ? (
-        <div className="flex w-full flex-col items-center justify-center gap-2 px-4 md:px-0">
+        <section className="flex w-full flex-col items-center justify-center gap-2 px-4 md:px-0">
           <div className="flex w-full flex-wrap items-center justify-center gap-2">
             {session.user.groups.map((group) => (
               <GroupLink key={group.id} group={group} />
             ))}
           </div>
           <CreateButton session={session} size={session.user.groups.length > 0 ? 'small' : 'normal'} />
-        </div>
+        </section>
       ) : (
-        <section className="flex max-w-lg flex-col items-center gap-[1lh] rounded-lg bg-radial-[at_50%_0%] from-zinc-900/10 via-zinc-50 via-80% p-4 leading-snug tracking-tight dark:from-zinc-100/10 dark:via-zinc-950">
-          <h6 className="text-xl font-semibold tracking-wide">Welcome to XIV Raider!</h6>
-          <p>XIV Raider is a group management tool for the Final Fantasy XIV community.</p>
-          <p>
-            Here, you will be able to create or join groups, manage your members, organize the loot distribution, and
-            keep track of who needs what items.
-          </p>
-          <p>To get started, you must be logged in with your Discord account. Click the button below to log in.</p>
+        <section className="relative flex max-w-lg flex-col items-center gap-[1lh] rounded-lg bg-gradient-to-b from-zinc-50 to-transparent to-70% px-4 py-6 text-center leading-snug tracking-tight dark:from-zinc-950">
+          <div className="pointer-events-none absolute top-0 left-0 z-10 h-4 w-full bg-gradient-to-b from-black/20 to-transparent" />
+
+          <header className="flex flex-col items-center justify-center gap-1 leading-snug">
+            <Title content="XIV Raider" />
+            <p className="text-xs tracking-tighter uppercase md:text-sm">A Final Fantasy XIV group management tool</p>
+          </header>
+          <p>Manage your static, organize the loot distribution, and keep track of who needs what items.</p>
+          <p>Log in with your Discord account to get started.</p>
           <LoginButton size="large" />
         </section>
       )}

@@ -11,7 +11,7 @@ export default function LoginButton({ size = 'normal' }: { size?: 'normal' | 'la
       name="Login"
       onClick={() => signIn('discord')}
       className={twMerge(
-        'mx-auto gap-2 px-4 font-semibold uppercase',
+        'mx-auto gap-2 px-4 font-semibold tracking-wide uppercase',
         size === 'large' ? 'h-14 w-2/3 text-4xl md:h-20' : 'w-fit'
       )}>
       <FaKey size={30} />
