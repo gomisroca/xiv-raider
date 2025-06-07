@@ -101,7 +101,7 @@ export function ContentBackground({ children, className }: { children: React.Rea
   return (
     <div
       className={twMerge(
-        'z-10 mx-auto flex min-h-screen w-full items-center justify-center bg-white/80 px-2 pb-23 md:min-h-fit md:w-fit md:px-10 md:py-10 lg:my-10 lg:p-20 dark:bg-black/80',
+        'z-10 mx-auto flex min-h-screen w-full items-center justify-center bg-white/80 px-4 pt-4 pb-40 md:min-h-fit md:w-fit md:px-10 lg:my-20 lg:p-20 dark:bg-black/80',
         className
       )}>
       {children}
