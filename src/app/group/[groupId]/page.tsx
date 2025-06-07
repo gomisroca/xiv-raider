@@ -18,7 +18,7 @@ async function GroupHeader({ group, session }: { group: ExtendedGroup; session: 
           <Link
             name="Add Character"
             href={`/group/${group.id}/create`}
-            className="w-fit text-sm font-semibold uppercase md:text-base">
+            className="w-fit text-sm font-semibold md:text-base">
             Add Character
           </Link>
         )}
@@ -27,13 +27,13 @@ async function GroupHeader({ group, session }: { group: ExtendedGroup; session: 
             <Link
               name="Update Group"
               href={`/group/${group.id}/update`}
-              className="w-fit text-sm font-semibold uppercase md:text-base">
+              className="w-fit text-sm font-semibold md:text-base">
               Update Group
             </Link>
             <Link
               name="Update Plan"
               href={`/group/${group.id}/plan`}
-              className="w-fit text-sm font-semibold uppercase md:text-base">
+              className="w-fit text-sm font-semibold md:text-base">
               Update Plan
             </Link>
             <InviteButton groupId={group.id} />
@@ -52,7 +52,7 @@ export default async function GroupPage({ params }: { params: Promise<{ groupId:
   return withGroupViewAccess(groupId, async ({ group, plan, session }) => (
     <div className="flex w-full flex-col items-center justify-center">
       <GroupHeader group={group} session={session} />
-      <section className="mt-10 flex min-h-[70vh] w-full flex-col items-center justify-start gap-2 md:p-4">
+      <section className="mt-10 flex min-h-[70vh] w-full flex-col items-center justify-start gap-2">
         {group.characters.length > 0 ? (
           <>
             <BossLootList groupId={group.id} characters={group.characters} plan={plan} />

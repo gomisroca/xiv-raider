@@ -60,13 +60,13 @@ export default function UpdatePlanForm({
     <Form
       ref={formRef}
       action={async (formData) => formAction(formData)}
-      className="flex flex-col items-center justify-center gap-2">
+      className="flex flex-col items-center justify-center gap-4">
       <div className="flex items-center justify-center gap-2">
         <label>Priority #1</label>
         <select
           name="priority_1"
           defaultValue={plan.priority_1}
-          className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+          className="border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
           {PlanPriorities.map((prio) => (
             <option key={prio} value={prio}>
               {prio}
@@ -79,7 +79,7 @@ export default function UpdatePlanForm({
         <select
           name="priority_2"
           defaultValue={plan.priority_2}
-          className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+          className="border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
           {PlanPriorities.map((prio) => (
             <option key={prio} value={prio}>
               {prio}
@@ -92,7 +92,7 @@ export default function UpdatePlanForm({
         <select
           name="priority_3"
           defaultValue={plan.priority_3}
-          className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+          className="border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
           {PlanPriorities.map((prio) => (
             <option key={prio} value={prio}>
               {prio}
@@ -105,7 +105,7 @@ export default function UpdatePlanForm({
         <select
           name="priority_4"
           defaultValue={plan.priority_4}
-          className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+          className="border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
           {PlanPriorities.map((prio) => (
             <option key={prio} value={prio}>
               {prio}

@@ -65,9 +65,9 @@ export default function UpdateCharacterForm({
     <Form
       ref={formRef}
       action={async (formData) => formAction(formData)}
-      className="flex flex-col items-center justify-center gap-2">
+      className="flex h-fit flex-col items-center justify-center gap-2">
       <input
-        className="rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700"
+        className="border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700"
         type="text"
         name="name"
         placeholder="My New Character"
@@ -77,7 +77,7 @@ export default function UpdateCharacterForm({
       <select
         name="job"
         defaultValue={character.job}
-        className="cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+        className="cursor-pointer border-2 border-zinc-400 bg-zinc-200 p-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
         {Jobs.map((job) => (
           <option key={job} value={job}>
             {job}
@@ -93,7 +93,7 @@ export default function UpdateCharacterForm({
             <select
               name={slot}
               defaultValue={character.gear.find((gear) => gear.type === slot)?.lootType}
-              className="flex-1 cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              className="flex-1 cursor-pointer border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {LootTypes.map((type) => (
                 <option key={type} value={type}>
                   {LootTypeLabels[type] ?? type}
@@ -103,7 +103,7 @@ export default function UpdateCharacterForm({
             <select
               name={slot + 'Status'}
               defaultValue={character.gear.find((gear) => gear.type === slot)?.status}
-              className="w-fit cursor-pointer rounded-lg border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
+              className="w-fit cursor-pointer border-2 border-zinc-400 bg-zinc-200 py-2 text-center focus:ring-2 focus:ring-sky-500 focus:outline-none md:px-2 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-sky-700">
               {GearStatuses.map((status) => (
                 <option key={status} value={status}>
                   {GearStatusLabels[status] ?? status}

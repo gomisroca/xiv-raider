@@ -40,8 +40,8 @@ export default function KickButton({
     <Button
       onClick={() => action()}
       name="Kick"
-      className="ml-1 w-fit bg-red-500 text-sm font-semibold uppercase md:text-base dark:bg-red-600">
-      <FaTrash />
+      className="skew-x-0 skew-y-0 text-sm hover:skew-x-0 hover:skew-y-0 hover:bg-red-500 md:text-base hover:dark:bg-red-600">
+      <FaTrash size={20} />
     </Button>
   );
 }
