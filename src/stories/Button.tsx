@@ -18,7 +18,7 @@ export const Button = ({ primary = false, size = 'medium', label, ...props }: Bu
     <button
       type="button"
       className={twMerge(
-        'rounded-lg px-4 py-2 dark:text-white',
+        'px-4 py-2 dark:text-white',
         primary ? 'bg-sky-500 dark:bg-sky-800' : 'bg-neutral-500 dark:bg-neutral-800',
         size === 'small' ? 'px-3 text-sm' : size === 'large' ? 'px-6 text-lg' : 'text-base'
       )}

@@ -28,7 +28,7 @@ export default function SubmitButton({
     <Button
       type="submit"
       name={baseText}
-      className={twMerge('w-fit font-semibold whitespace-nowrap', className)}
+      className={twMerge('w-full font-semibold whitespace-nowrap', className)}
       disabled={pending}>
       {pending ? pendingText : baseText}
     </Button>

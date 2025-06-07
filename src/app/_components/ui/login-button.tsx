@@ -11,11 +11,13 @@ export default function LoginButton({ size = 'normal' }: { size?: 'normal' | 'la
       name="Login"
       onClick={() => signIn('discord')}
       className={twMerge(
-        'mx-auto gap-2 px-4 font-semibold tracking-wide uppercase',
-        size === 'large' ? 'h-14 w-2/3 text-4xl md:h-20' : 'w-fit'
+        'gap-2 px-4 font-semibold tracking-wide uppercase',
+        size === 'large' ? 'h-18 w-2/3 text-4xl' : 'w-full'
       )}>
-      <FaKey size={30} />
-      <span>Login</span>
+      <div className="flex items-center justify-center gap-1">
+        <FaKey size={30} />
+        <span>Login</span>
+      </div>
     </Button>
   );
 }

@@ -5,20 +5,6 @@
  * <Link href="/about" className="w-full">About</Link>
  */
 
-const pulseAnimation = `
-  @keyframes pulse-scale {
-    0% {
-      transform: scale(1) rotate(0deg);
-    }
-    50% {
-      transform: scale(1.05) rotate(1deg);
-    }
-    100% {
-      transform: scale(1) rotate(0deg);
-    }
-  }
-`;
-
 import NextLink from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
@@ -31,18 +17,18 @@ interface Props {
 
 function Link({ href, children, name, className }: Props) {
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: pulseAnimation }} />
+    <div
+      className={twMerge(
+        'group flex h-[50px] w-[55px] skew-x-6 skew-y-3 cursor-pointer bg-black p-2 transition duration-200 ease-in-out hover:z-10 hover:scale-125 hover:skew-5 active:scale-90 active:skew-2 active:shadow-lg dark:bg-white',
+        className
+      )}>
       <NextLink
         href={href}
         aria-label={name}
-        className={twMerge(
-          'dark:text- flex h-[36px] cursor-pointer items-center justify-center rounded-lg bg-sky-500 p-2 text-zinc-50 transition duration-200 ease-in-out *:opacity-80 hover:animate-[pulse-scale_1.5s_ease-in-out_infinite] hover:*:opacity-100 active:scale-90 active:rotate-[-1deg] active:animate-none active:shadow-lg dark:bg-sky-600 dark:text-zinc-200',
-          className
-        )}>
+        className="flex w-full skew-1 cursor-pointer items-center justify-center bg-sky-500 p-2 font-semibold text-black uppercase transition duration-200 ease-in-out group-hover:bg-sky-400 dark:bg-sky-600 dark:text-white dark:group-hover:bg-sky-500">
         {children}
       </NextLink>
-    </>
+    </div>
   );
 }
 

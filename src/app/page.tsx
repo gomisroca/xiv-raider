@@ -4,7 +4,6 @@ import { type Group } from 'generated/prisma';
 import LoginButton from './_components/ui/login-button';
 import CreateButton from './create-button';
 import { Title } from './_components/ui/title';
-import { FaDiscord } from 'react-icons/fa6';
 
 function GroupLink({ group }: { group: Group }) {
   return (
@@ -12,7 +11,7 @@ function GroupLink({ group }: { group: Group }) {
       key={group.id}
       href={`/group/${group.id}`}
       name={group.name}
-      className="h-45 w-full max-w-xl overflow-hidden text-4xl font-semibold uppercase md:h-64 md:w-full md:text-6xl">
+      className="h-45 w-full max-w-xl overflow-hidden text-3xl font-semibold uppercase md:h-64 md:w-full md:text-6xl">
       {group.name}
     </Link>
   );
@@ -33,7 +32,7 @@ export default async function Home() {
           <CreateButton session={session} size={session.user.groups.length > 0 ? 'small' : 'normal'} />
         </section>
       ) : (
-        <section className="flex max-w-lg flex-col items-center gap-[1lh] rounded-lg bg-gradient-to-b from-zinc-50 to-transparent to-70% px-4 py-6 text-center leading-snug tracking-tight dark:from-zinc-950">
+        <section className="flex max-w-lg flex-col items-center gap-[1lh] bg-gradient-to-b from-zinc-50 to-transparent to-70% px-4 py-6 text-center leading-snug tracking-tight dark:from-zinc-950">
           <header className="flex flex-col items-center justify-center gap-1 leading-snug">
             <Title content="XIV Raider" />
             <p className="text-xs tracking-tighter uppercase md:text-sm">A Final Fantasy XIV group management tool</p>
