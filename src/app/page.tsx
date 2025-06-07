@@ -33,9 +33,7 @@ export default async function Home() {
           <CreateButton session={session} size={session.user.groups.length > 0 ? 'small' : 'normal'} />
         </section>
       ) : (
-        <section className="relative flex max-w-lg flex-col items-center gap-[1lh] rounded-lg bg-gradient-to-b from-zinc-50 to-transparent to-70% px-4 py-6 text-center leading-snug tracking-tight dark:from-zinc-950">
-          <div className="pointer-events-none absolute top-0 left-0 z-10 h-4 w-full bg-gradient-to-b from-black/20 to-transparent" />
-
+        <section className="flex max-w-lg flex-col items-center gap-[1lh] rounded-lg bg-gradient-to-b from-zinc-50 to-transparent to-70% px-4 py-6 text-center leading-snug tracking-tight dark:from-zinc-950">
           <header className="flex flex-col items-center justify-center gap-1 leading-snug">
             <Title content="XIV Raider" />
             <p className="text-xs tracking-tighter uppercase md:text-sm">A Final Fantasy XIV group management tool</p>
