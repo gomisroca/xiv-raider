@@ -2,7 +2,7 @@ import { twMerge } from 'tailwind-merge';
 
 export function LayoutBackground({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative overflow-x-hidden bg-zinc-50 dark:bg-zinc-950">
+    <div className="relative flex min-h-screen items-center justify-center overflow-x-hidden bg-zinc-50 dark:bg-zinc-950">
       {/* Main Radial Burst Pattern */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2">
@@ -92,7 +92,7 @@ export function LayoutBackground({ children }: { children: React.ReactNode }) {
         ))}
       </div>
       {/* Content Area */}
-      <div className="z-10 flex min-h-screen flex-col">{children}</div>
+      {children}
     </div>
   );
 }
@@ -101,7 +101,7 @@ export function ContentBackground({ children, className }: { children: React.Rea
   return (
     <div
       className={twMerge(
-        'z-10 mx-auto flex w-fit flex-1 items-center justify-center bg-white/80 px-4 pt-10 pb-32 lg:my-10 lg:py-0 dark:bg-black/80',
+        'z-10 mx-auto flex min-h-screen w-full items-center justify-center bg-white/80 px-2 pb-23 md:min-h-fit md:w-fit md:px-10 md:py-10 lg:my-10 lg:p-20 dark:bg-black/80',
         className
       )}>
       {children}
