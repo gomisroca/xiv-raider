@@ -16,7 +16,7 @@ export default async function Navbar() {
       {/* Link to the home page */}
       <div className="absolute -top-28 left-25 h-60 w-60 translate-x-3 translate-y-10 scale-x-150 skew-12 bg-black dark:bg-white"></div>
       <div className="pointer-events-none absolute -top-25 -right-25 h-60 w-60 translate-x-3 translate-y-10 skew-10 bg-sky-500"></div>
-      <Link name="Home" href="/" className="translate-x-5 -translate-y-7 shadow-md">
+      <Link name="Home" href="/" skew="high" className="translate-x-5 -translate-y-7 shadow-md">
         <MdHome size={20} />
       </Link>
       <UserMenu session={session} />

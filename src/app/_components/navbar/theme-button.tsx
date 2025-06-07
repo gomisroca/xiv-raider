@@ -20,6 +20,7 @@ function ThemeButton() {
     <Button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       name="Theme Button"
+      skew="high"
       className="-translate-y-20 shadow-md">
       <FaMoon
         name="light"

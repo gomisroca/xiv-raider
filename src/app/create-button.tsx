@@ -18,6 +18,7 @@ export default function CreateButton({
     <Button
       onClick={() => redirect('/create')}
       name="Create group"
+      skew="high"
       className={twMerge(
         'group max-w-xl text-2xl font-semibold uppercase md:text-4xl',
         size === 'small' ? 'h-30 w-full md:h-40' : 'h-96 w-full md:h-86'

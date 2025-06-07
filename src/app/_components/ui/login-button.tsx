@@ -11,7 +11,7 @@ export default function LoginButton({ size = 'normal' }: { size?: 'normal' | 'la
       name="Login"
       onClick={() => signIn('discord')}
       className={twMerge(
-        'gap-2 px-4 font-semibold tracking-wide uppercase',
+        'gap-2 font-semibold tracking-wide uppercase',
         size === 'large' ? 'h-18 w-2/3 text-4xl' : 'w-full'
       )}>
       <div className="flex items-center justify-center gap-1">

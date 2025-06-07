@@ -11,6 +11,7 @@ function GroupLink({ group }: { group: Group }) {
       key={group.id}
       href={`/group/${group.id}`}
       name={group.name}
+      skew="high"
       className="h-45 w-full max-w-xl overflow-hidden text-3xl font-semibold uppercase md:h-64 md:w-full md:text-6xl">
       {group.name}
     </Link>
@@ -24,15 +25,13 @@ export default async function Home() {
     <>
       {session ? (
         <section className="flex w-full flex-col items-center justify-center gap-2 px-4 md:px-0">
-          <div className="flex w-full flex-wrap items-center justify-center gap-2">
-            {session.user.groups.map((group) => (
-              <GroupLink key={group.id} group={group} />
-            ))}
-          </div>
+          {session.user.groups.map((group) => (
+            <GroupLink key={group.id} group={group} />
+          ))}
           <CreateButton session={session} size={session.user.groups.length > 0 ? 'small' : 'normal'} />
         </section>
       ) : (
-        <section className="flex max-w-lg flex-col items-center gap-[1lh] bg-gradient-to-b from-zinc-50 to-transparent to-70% px-4 py-6 text-center leading-snug tracking-tight dark:from-zinc-950">
+        <section className="flex max-w-lg flex-col items-center gap-[1lh] px-4 py-6 text-center leading-snug tracking-tight">
           <header className="flex flex-col items-center justify-center gap-1 leading-snug">
             <Title content="XIV Raider" />
             <p className="text-xs tracking-tighter uppercase md:text-sm">A Final Fantasy XIV group management tool</p>

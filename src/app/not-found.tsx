@@ -6,7 +6,7 @@ export default function NotFound() {
     <div className="flex flex-col items-center justify-center gap-4">
       <Title content="404 | Not Found" size="large" />
       <p>We could not find the page you are looking for.</p>
-      <Link href="/" name="Home" className="mt-4 h-18 w-1/3 text-4xl font-semibold uppercase">
+      <Link href="/" name="Home" className="mt-4 h-18 w-fit text-4xl font-semibold uppercase">
         Go Back
       </Link>
     </div>

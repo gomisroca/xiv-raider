@@ -14,15 +14,17 @@ interface Props {
   type?: 'submit' | 'button';
   name: string;
   disabled?: boolean;
+  skew?: 'normal' | 'high';
   children: React.ReactNode;
   className?: string;
 }
 
-function Button({ onClick, type = 'button', name, disabled = false, children, className }: Props) {
+function Button({ onClick, type = 'button', name, disabled = false, skew = 'normal', children, className }: Props) {
   return (
     <div
       className={twMerge(
-        'group flex h-[50px] w-[55px] skew-x-6 skew-y-3 cursor-pointer bg-black p-2 transition duration-200 ease-in-out hover:z-10 hover:scale-125 hover:skew-5 active:scale-90 active:skew-2 active:shadow-lg dark:bg-white',
+        'group flex h-[50px] w-[55px] cursor-pointer bg-black p-2 transition duration-200 ease-in-out hover:z-10 hover:scale-125 active:scale-90 active:skew-2 active:shadow-lg dark:bg-white',
+        skew === 'high' ? 'skew-x-6 skew-y-3 hover:skew-5' : 'skew-x-2 skew-y-1 hover:skew-3',
         className
       )}>
       <button

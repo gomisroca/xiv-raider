@@ -29,19 +29,14 @@ export default async function MemberList({
   return (
     <div className="grid w-full grid-cols-1 items-center justify-center gap-2 md:grid-cols-2 md:gap-4">
       {charactersByPriority.map(({ priority, chararacters }, idx) => (
-        <div
-          key={priority}
-          className="flex w-full skew-x-6 skew-y-3 flex-col items-center justify-center gap-y-2 text-sm">
+        <div key={priority} className="flex w-full flex-col items-center justify-center gap-y-2 text-sm">
           <p className="font-medium">
             Priority #{idx + 1}: <span className="text-lg font-semibold uppercase">{priority}</span>
           </p>
           <ul className="flex list-none flex-col gap-2">
             {chararacters.map((character) => (
               <li key={character.id} className="flex items-center justify-start gap-1">
-                <Link
-                  name={`View ${character.name}`}
-                  href={`/group/${group.id}/${character.id}`}
-                  className="flex w-fit skew-x-0 skew-y-0 items-center justify-start gap-2 font-semibold uppercase hover:skew-x-0 hover:skew-y-0">
+                <Link name={`View ${character.name}`} href={`/group/${group.id}/${character.id}`} className="w-fit">
                   <JobIcon job={character.job} />
                   <span>{character.name}</span>
                 </Link>
@@ -49,7 +44,7 @@ export default async function MemberList({
                   <Link
                     name={`Update ${character.name}`}
                     href={`/group/${group.id}/${character.id}/update`}
-                    className="border-r-none skew-x-0 skew-y-0 border-zinc-400 font-semibold uppercase hover:skew-x-0 hover:skew-y-0">
+                    className="border-zinc-400 font-semibold uppercase">
                     <FaPencil />
                   </Link>
                 )}
