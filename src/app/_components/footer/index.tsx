@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import ThemeButton from '@/app/_components/footer/theme-button';
 
 // Dynamically import the Message component for SSG and SSR
 const Message = dynamic(() => import('@/app/_components/footer/message'));
@@ -12,7 +11,6 @@ function Footer() {
         <section className="flex max-w-3/4 flex-col self-end py-2 text-xs leading-none tracking-tight opacity-40">
           <p className="pointer-events-none w-fit">FINAL FANTASY XIV © SQUARE ENIX CO., LTD.</p>
         </section>
-        <ThemeButton />
       </footer>
     </>
   );
