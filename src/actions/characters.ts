@@ -181,6 +181,15 @@ export async function updateGearSlot(updateData: z.infer<typeof UpdateGearSchema
     const existingGearPiece = await trx.gearPiece.findUnique({
       where: {
         id: gearId,
+        character: {
+          group: {
+            members: {
+              some: {
+                id: session.user.id,
+              },
+            },
+          },
+        },
       },
       select: {
         type: true,
