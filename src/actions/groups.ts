@@ -68,7 +68,7 @@ export async function createGroup(createData: CreateGroupData) {
       },
     });
 
-    return { message: `Group ${group.name} created.`, redirect: `/group/${group.id}` };
+    return { message: `Group ${group.name} was created.`, redirect: `/group/${group.id}` };
   });
 }
 
