@@ -37,14 +37,16 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
         })),
       };
 
+      // Optimistically set the message
+      setMessage({
+        content: `Character ${data.name.trim()} was created.`,
+        error: false,
+      });
+
       const action: ActionReturn = await createCharacter(data);
 
-      // Reset the form and set the message
+      // Reset the form
       formRef.current?.reset();
-      setMessage({
-        content: action.message,
-        error: action.error,
-      });
 
       // If the action returns a redirect, redirect to the specified page
       if (action.redirect) redirect(modal, action.redirect);

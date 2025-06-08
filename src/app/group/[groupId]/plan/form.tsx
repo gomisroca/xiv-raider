@@ -28,6 +28,12 @@ export default function UpdatePlanForm({
 
   const formAction = async (formData: FormData) => {
     try {
+      // Optimistically set the message
+      setMessage({
+        content: `Plan was updated.`,
+        error: false,
+      });
+
       // Call the updatePlan action with the form data
       const data = {
         groupId,
@@ -39,12 +45,8 @@ export default function UpdatePlanForm({
 
       const action: ActionReturn = await updatePlan(data);
 
-      // Reset the form and set the message
+      // Reset the form
       formRef.current?.reset();
-      setMessage({
-        content: action.message,
-        error: action.error,
-      });
 
       // If the action returns a redirect, redirect to the specified page
       if (action.redirect) redirect(modal, action.redirect);

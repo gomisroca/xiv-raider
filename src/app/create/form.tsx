@@ -18,17 +18,19 @@ export default function CreateGroupForm({ modal = false }: { modal?: boolean }) 
 
   const formAction = async (formData: FormData) => {
     try {
+      // Optimistically set the message
+      setMessage({
+        content: `Group ${(formData.get('name') as string).trim()} was created.`,
+        error: false,
+      });
+
       // Call the createGroup action with the form data
       const action: ActionReturn = await createGroup({
         name: formData.get('name') as string,
       });
 
-      // Reset the form and set the message
+      // Reset the form
       formRef.current?.reset();
-      setMessage({
-        content: action.message,
-        error: action.error,
-      });
 
       // If the action returns a redirect, redirect to the specified page
       if (action.redirect) redirect(modal, action.redirect);

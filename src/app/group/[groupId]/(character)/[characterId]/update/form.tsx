@@ -42,18 +42,21 @@ export default function UpdateCharacterForm({
         })),
       };
 
+      // Optimistically set the message
+      setMessage({
+        content: `Character ${data.name.trim()} was updated.`,
+        error: false,
+      });
+
       const action: ActionReturn = await updateCharacter(data);
 
-      // Reset the form and set the message
+      // Reset the form
       formRef.current?.reset();
-      setMessage({
-        content: action.message,
-        error: action.error,
-      });
 
       // If the action returns a redirect, redirect to the specified page
       if (action.redirect) redirect(modal, action.redirect);
     } catch (error) {
+      // Update the message if an error occurred
       setMessage({
         content: toErrorMessage(error, 'Failed to update character'),
         error: true,
