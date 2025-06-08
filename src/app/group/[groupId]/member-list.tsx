@@ -36,7 +36,10 @@ export default async function MemberList({
           <ul className="flex list-none flex-col gap-2">
             {chararacters.map((character) => (
               <li key={character.id} className="flex items-center justify-start gap-1">
-                <Link name={`View ${character.name}`} href={`/group/${group.id}/${character.id}`} className="w-fit">
+                <Link
+                  name={`View ${character.name}`}
+                  href={`/group/${group.id}/${character.id}`}
+                  className="h-fit w-fit *:gap-1">
                   <JobIcon job={character.job} />
                   <span>{character.name}</span>
                 </Link>
