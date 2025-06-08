@@ -27,7 +27,7 @@ export default async function InvitePage({
       </p>
       <section className="flex items-center gap-2">
         <JoinButton tokenId={code} />
-        <Link name="Home" href="/" className="font-semibold uppercase">
+        <Link name="Home" href="/" className="w-36">
           Go Back
         </Link>
       </section>

@@ -23,7 +23,7 @@ export default function JoinButton({ tokenId }: { tokenId: string }) {
   };
 
   return (
-    <Button onClick={() => action(tokenId)} name="Join" className="w-fit font-semibold uppercase">
+    <Button onClick={() => action(tokenId)} name="Join" className="w-36">
       Join
     </Button>
   );
