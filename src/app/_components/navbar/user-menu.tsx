@@ -12,7 +12,7 @@ export default function UserMenu({ session }: { session: Session | null }) {
       onClick={() => (session ? signOut() : signIn('discord'))}
       name={session ? 'Log Out' : 'Log In'}
       skew="high"
-      className="-translate-x-3 -translate-y-19 shadow-md md:-translate-y-23">
+      className="-translate-x-3 -translate-y-19 shadow-md">
       {session ? <IoExit size={20} /> : <FaKey size={20} />}
     </Button>
   );
