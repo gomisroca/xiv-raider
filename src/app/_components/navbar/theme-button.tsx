@@ -21,7 +21,7 @@ function ThemeButton() {
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       name="Theme Button"
       skew="high"
-      className="-translate-y-20 shadow-md">
+      className="-translate-y-15 shadow-md md:-translate-y-20">
       <FaMoon
         name="light"
         size={20}
