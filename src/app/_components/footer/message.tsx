@@ -40,10 +40,10 @@ const Message = () => {
   return (
     <dialog
       className={twMerge(
-        'fixed right-0 bottom-10 left-0 z-[9999] m-auto flex w-[90vw] skew-x-6 skew-y-3 flex-col items-center justify-center gap-2 bg-black p-2 font-semibold text-zinc-50 transition duration-200 ease-in-out md:w-2/3 xl:w-[30vw] dark:bg-white dark:text-zinc-200',
+        'fixed right-0 bottom-10 left-0 z-[9999] m-auto flex w-[90vw] skew-x-2 skew-y-1 flex-col items-center justify-center gap-2 bg-black p-2 font-semibold text-zinc-50 transition duration-200 ease-in-out md:w-2/3 xl:w-[30vw] dark:bg-white dark:text-zinc-200',
         message?.error && 'bg-red-500 dark:bg-red-600'
       )}>
-      <div className=":text-2xl flex w-full skew-1 items-center justify-center bg-sky-500 p-2 md:text-lg dark:bg-sky-600">
+      <div className=":text-2xl flex w-full skew-x-2 skew-y-[0.5deg] items-center justify-center bg-sky-500 p-2 md:text-lg dark:bg-sky-600">
         {message?.content ?? 'hello'}
       </div>
     </dialog>
