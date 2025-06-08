@@ -24,10 +24,7 @@ export default function CreateButton({
         size === 'small' ? 'h-30 w-full md:h-40' : 'h-96 w-full md:h-86'
       )}>
       <GoPlus
-        className={twMerge(
-          'pointer-events-none transition duration-200 ease-in-out group-active:scale-75',
-          size === 'small' ? 'h-30 w-30' : 'h-64 w-64 md:h-72 md:w-72'
-        )}
+        className={twMerge('pointer-events-none', size === 'small' ? 'h-30 w-30' : 'h-64 w-64 md:h-72 md:w-72')}
       />
     </Button>
   );
