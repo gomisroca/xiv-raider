@@ -26,12 +26,12 @@ export function LayoutBackground({ children }: { children: React.ReactNode }) {
 
       {/* Geometric Shapes - Art Nouveau Style */}
       <div className="pointer-events-none absolute top-16 right-16 h-32 w-32 rotate-45 border-4 border-sky-500 opacity-80 dark:border-sky-600"></div>
-      <div className="pointer-events-none absolute top-24 right-24 h-24 w-24 rotate-45 border-2 border-yellow-400 opacity-60 dark:border-yellow-500"></div>
+      <div className="pointer-events-none absolute top-24 right-24 h-24 w-24 rotate-45 border-2 border-purple-400 opacity-60 dark:border-purple-500"></div>
 
       {/* Flowing Curves */}
       <div className="pointer-events-none absolute top-32 left-16 h-64 w-64 opacity-30">
         <svg viewBox="0 0 200 200" className="h-full w-full">
-          <path d="M20,100 Q60,20 100,100 T180,100" stroke="#facc15" strokeWidth="3" fill="none" opacity="0.7" />
+          <path d="M20,100 Q60,20 100,100 T180,100" stroke="#c084fc" strokeWidth="3" fill="none" opacity="0.7" />
           <path d="M20,120 Q60,40 100,120 T180,120" stroke="#0ea5e9" strokeWidth="2" fill="none" opacity="0.5" />
         </svg>
       </div>
@@ -39,7 +39,7 @@ export function LayoutBackground({ children }: { children: React.ReactNode }) {
       {/* Corner Decorative Elements */}
       <div className="pointer-events-none absolute bottom-16 left-16 h-48 w-48 opacity-40">
         <svg viewBox="0 0 200 200" className="h-full w-full">
-          <circle cx="100" cy="100" r="80" stroke="#facc15" strokeWidth="2" fill="none" opacity="0.6" />
+          <circle cx="100" cy="100" r="80" stroke="#c084fc" strokeWidth="2" fill="none" opacity="0.6" />
           <circle cx="100" cy="100" r="60" stroke="#0ea5e9" strokeWidth="1" fill="none" opacity="0.4" />
           <circle cx="100" cy="100" r="40" stroke="#0ea5e9" strokeWidth="1" fill="none" opacity="0.3" />
         </svg>
@@ -50,7 +50,7 @@ export function LayoutBackground({ children }: { children: React.ReactNode }) {
       <div className="pointer-events-none absolute top-1/4 right-1/4 h-2 w-24 rotate-12 transform bg-sky-500 opacity-70 dark:bg-sky-600"></div>
 
       {/* Diamond Shapes */}
-      <div className="pointer-events-none absolute right-1/3 bottom-1/3 h-8 w-8 rotate-45 transform bg-yellow-400 opacity-60 dark:bg-yellow-500"></div>
+      <div className="pointer-events-none absolute right-1/3 bottom-1/3 h-8 w-8 rotate-45 transform bg-purple-400 opacity-60 dark:bg-purple-500"></div>
       <div className="pointer-events-none absolute right-1/3 bottom-1/3 h-4 w-4 translate-x-6 translate-y-6 rotate-45 transform bg-sky-500 opacity-80 dark:bg-sky-600"></div>
 
       {/* Speed Lines */}
@@ -73,8 +73,8 @@ export function LayoutBackground({ children }: { children: React.ReactNode }) {
       {/* Persona-style Frame Elements */}
       <div className="pointer-events-none absolute top-8 left-8 h-1 w-16 bg-sky-500 dark:bg-sky-600"></div>
       <div className="pointer-events-none absolute top-8 left-8 h-16 w-1 bg-sky-500 dark:bg-sky-600"></div>
-      <div className="pointer-events-none absolute right-8 bottom-8 h-1 w-16 bg-yellow-400 dark:bg-yellow-500"></div>
-      <div className="pointer-events-none absolute right-8 bottom-8 h-16 w-1 bg-yellow-400 dark:bg-yellow-500"></div>
+      <div className="pointer-events-none absolute right-8 bottom-8 h-1 w-16 bg-purple-400 dark:bg-purple-500"></div>
+      <div className="pointer-events-none absolute right-8 bottom-8 h-16 w-1 bg-purple-400 dark:bg-purple-500"></div>
 
       {/* Additional Halftone Clusters */}
       <div className="pointer-events-none absolute top-1/2 right-8 opacity-30">
