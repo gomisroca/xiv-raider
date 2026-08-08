@@ -58,12 +58,12 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@playwright/test": "^1.50.0",
+    "@storybook/addon-docs": "^10.5.7",
     "@storybook/addon-onboarding": "^10.5.7",
     "@storybook/addon-themes": "^10.5.7",
-    "@storybook/blocks": "^8.6.18",
+    "@storybook/addon-vitest": "^10.5.7",
     "@storybook/nextjs": "^10.5.7",
     "@storybook/react": "^10.5.7",
-    "@storybook/test": "^8.6.18",
     "@tailwindcss/postcss": "^4.1.7",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -95,8 +95,7 @@
     "storybook": "^10.5.7",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.5.3",
-    "vitest": "^3.2.7",
-    "@storybook/addon-docs": "^10.5.7"
+    "vitest": "^3.2.7"
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
