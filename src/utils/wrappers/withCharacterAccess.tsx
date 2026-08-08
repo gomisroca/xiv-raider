@@ -40,7 +40,7 @@ export async function withCharacterUpdateAccess(
   if (!character) return notFound();
 
   const session = await auth();
-  if (!session || character.owner.id !== session.user.id) return <NotAllowed />;
+  if (character.owner.id !== session?.user.id) return <NotAllowed />;
 
   return await callback(character);
 }
