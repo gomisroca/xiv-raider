@@ -31,7 +31,7 @@ export default function CreateCharacterForm({ modal = false }: { modal?: boolean
         name: formData.get('name') as string,
         job: formData.get('job') as Job,
         gearPieces: Object.values(GearSlot).map((slot) => ({
-          type: slot as GearSlot,
+          type: slot,
           lootType: formData.get(slot) as LootType,
           status: formData.get(slot + 'Status') as GearStatus,
         })),
