@@ -16,6 +16,9 @@ export default defineConfig([
   js.configs.recommended,
 
   {
+    settings: {
+      react: { version: '19' },
+    },
     files: ['**/*.{js,jsx,ts,tsx}'],
 
     extends: [tseslint.configs.recommendedTypeChecked, tseslint.configs.stylisticTypeChecked],
