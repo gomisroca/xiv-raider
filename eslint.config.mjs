@@ -85,6 +85,7 @@ export default defineConfig([
     'dist/**',
     'coverage/**',
     'node_modules/**',
+    'e2e/**',
 
     // Generated / configuration files you don't want linted
     'src/vite-env.d.ts',
