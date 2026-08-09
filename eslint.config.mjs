@@ -1,87 +1,11 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-import js from '@eslint/js';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
-import prettier from 'eslint-config-prettier/flat';
-import prettierPlugin from 'eslint-plugin-prettier';
-import storybook from 'eslint-plugin-storybook';
-import vitest from '@vitest/eslint-plugin';
-import tseslint from 'typescript-eslint';
-import globals from 'globals';
 
-export default defineConfig([
+const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-
-  js.configs.recommended,
-
-  {
-    settings: {
-      react: { version: '19' },
-    },
-    files: ['**/*.{js,jsx,ts,tsx}'],
-
-    extends: [tseslint.configs.recommendedTypeChecked, tseslint.configs.stylisticTypeChecked],
-
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-      },
-    },
-
-    plugins: {
-      prettier: prettierPlugin,
-      vitest,
-    },
-
-    rules: {
-      'prettier/prettier': 'error',
-
-      'no-console': 'warn',
-
-      '@typescript-eslint/array-type': 'off',
-
-      '@typescript-eslint/consistent-type-definitions': 'off',
-
-      '@typescript-eslint/consistent-type-imports': [
-        'warn',
-        {
-          prefer: 'type-imports',
-          fixStyle: 'inline-type-imports',
-        },
-      ],
-
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        {
-          argsIgnorePattern: '^_',
-        },
-      ],
-
-      '@typescript-eslint/require-await': 'off',
-
-      '@typescript-eslint/no-misused-promises': [
-        'error',
-        {
-          checksVoidReturn: {
-            attributes: false,
-          },
-        },
-      ],
-    },
-  },
-
-  {
-    files: ['**/*.{test,spec}.{js,jsx,ts,tsx}', '**/tests/**/*.{js,jsx,ts,tsx}'],
-    languageOptions: {
-      globals: globals.vitest,
-    },
-  },
-
-  ...storybook.configs['flat/recommended'],
-
-  prettier,
-
+  // Override default ignores of eslint-config-next.
   globalIgnores([
     // Build / generated output
     '.next/**',
@@ -89,6 +13,7 @@ export default defineConfig([
     'coverage/**',
     'node_modules/**',
     'e2e/**',
+    'generated/**',
 
     // Generated / configuration files you don't want linted
     'src/vite-env.d.ts',
@@ -127,4 +52,14 @@ export default defineConfig([
     '.eslintrc',
     '.eslintignore',
   ]),
+  {
+    settings: {
+      // Fix for ESLint 10+: eslint-plugin-react uses context.getFilename() (legacy API)
+      // which was removed in ESLint 10 flat config. Declaring the version explicitly
+      // prevents the plugin from trying to auto-detect it and failing.
+      react: { version: '19' },
+    },
+  },
 ]);
+
+export default eslintConfig;
