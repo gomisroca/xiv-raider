@@ -7,7 +7,7 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import storybook from 'eslint-plugin-storybook';
 import vitest from '@vitest/eslint-plugin';
 import tseslint from 'typescript-eslint';
-import global from 'globals';
+import globals from 'globals';
 
 export default defineConfig([
   ...nextVitals,
