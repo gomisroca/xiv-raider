@@ -79,5 +79,48 @@ export default defineConfig([
 
   prettier,
 
-  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts', 'coverage/**', 'node_modules/**']),
+  globalIgnores([
+    // Build / generated output
+    '.next/**',
+    'dist/**',
+    'coverage/**',
+    'node_modules/**',
+
+    // Generated / configuration files you don't want linted
+    'src/vite-env.d.ts',
+    'vite.config.ts',
+    'package.json',
+    'package-lock.json',
+    'tsconfig.json',
+    'tsconfig.node.json',
+    'tsconfig.app.json',
+
+    // Components intentionally excluded from linting
+    'src/app/_components/ui/**',
+
+    // Prisma
+    'prisma/**',
+
+    // Static/public files
+    'public/**',
+
+    // Environment / deployment files
+    '.env.example',
+    '.dockerignore',
+    'Dockerfile',
+    'docker-compose.yml',
+
+    // Project metadata / tooling
+    'README.md',
+    '.github/**',
+    '.husky/**',
+    '.prettierrc',
+    '.prettierignore',
+    '.gitignore',
+
+    // Old ESLint configuration
+    '.eslintrc.cjs',
+    '.eslintrc',
+    '.eslintignore',
+  ]),
 ]);
