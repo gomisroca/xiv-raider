@@ -13,21 +13,19 @@ interface Props {
   children: React.ReactNode;
   name: string;
   className?: string;
-  skew?: 'normal' | 'high';
 }
 
-function Link({ href, children, name, className, skew = 'normal' }: Props) {
+function Link({ href, children, name, className }: Props) {
   return (
     <div
       className={twMerge(
-        'group flex h-[50px] w-[55px] cursor-pointer bg-black p-2 transition duration-200 ease-in-out hover:z-10 hover:scale-125 hover:skew-5 active:scale-90 active:skew-2 active:shadow-lg dark:bg-white',
-        skew === 'high' ? 'skew-x-6 skew-y-3 hover:skew-5' : 'skew-x-2 skew-y-1 hover:skew-3',
+        'group flex h-12.5 w-13.75 cursor-pointer bg-black p-2 transition duration-200 ease-in-out hover:z-10 hover:scale-125 active:scale-90 active:shadow-lg dark:bg-white',
         className
       )}>
       <NextLink
         href={href}
         aria-label={name}
-        className="flex w-full skew-1 cursor-pointer items-center justify-center bg-sky-500 p-2 font-semibold text-black uppercase transition duration-200 ease-in-out group-hover:bg-sky-400 dark:bg-sky-600 dark:text-white dark:group-hover:bg-sky-500">
+        className="flex w-full cursor-pointer items-center justify-center bg-sky-500 p-2 font-semibold text-black uppercase transition duration-200 ease-in-out group-hover:bg-sky-400 dark:bg-sky-600 dark:text-white dark:group-hover:bg-sky-500">
         {children}
       </NextLink>
     </div>

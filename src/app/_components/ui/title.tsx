@@ -12,7 +12,7 @@ export function Title({
   const mainSize = size === 'normal' ? 'text-2xl md:text-3xl' : 'text-2xl md:text-5xl';
 
   return (
-    <div className={twMerge('pointer-events-none relative skew-1 text-center', className)}>
+    <div className={twMerge('pointer-events-none relative text-center', className)}>
       <h2
         className={twMerge(
           'relative z-10 flex items-center justify-start gap-2 font-semibold tracking-widest uppercase',

@@ -11,7 +11,6 @@ function GroupLink({ group }: { group: Group }) {
       key={group.id}
       href={`/group/${group.id}`}
       name={group.name}
-      skew="high"
       className="h-45 w-full max-w-xl overflow-hidden text-3xl font-semibold uppercase md:h-64 md:w-full md:text-6xl">
       {group.name}
     </Link>
