@@ -18,7 +18,6 @@ async function GroupHeader({ group, session }: { group: ExtendedGroup; session: 
           <Link
             name="Add Character"
             href={`/group/${group.id}/create`}
-            skew="high"
             className="w-fit text-sm font-semibold md:text-base">
             Add Character
           </Link>
@@ -28,14 +27,12 @@ async function GroupHeader({ group, session }: { group: ExtendedGroup; session: 
             <Link
               name="Update Group"
               href={`/group/${group.id}/update`}
-              skew="high"
               className="w-fit text-sm font-semibold md:text-base">
               Update Group
             </Link>
             <Link
               name="Update Plan"
               href={`/group/${group.id}/plan`}
-              skew="high"
               className="w-fit text-sm font-semibold md:text-base">
               Update Plan
             </Link>

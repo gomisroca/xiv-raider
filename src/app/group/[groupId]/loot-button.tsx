@@ -64,7 +64,7 @@ export default function LootButton({
     <Button
       name="Update Gear Slot"
       onClick={handleStatusChange}
-      className={`inline-flex h-fit w-fit items-center gap-[2px] p-1 *:skew-2 *:px-1 *:py-[2px] md:gap-1 ${optimisticStatus === 'Obtained' ? 'opacity-35 hover:opacity-70' : ''}`}>
+      className={`inline-flex h-fit w-fit items-center gap-0.5 p-1 *:px-1 *:py-0.5 md:gap-1 ${optimisticStatus === 'Obtained' ? 'opacity-35 hover:opacity-70' : ''}`}>
       <GearIcon gearSlot={slot} />
       <LootIcon lootType={lootType} />
     </Button>

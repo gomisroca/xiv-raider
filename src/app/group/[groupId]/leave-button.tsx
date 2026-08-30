@@ -41,8 +41,7 @@ export default function LeaveButton({ groupId, memberId }: { groupId: string; me
     <Button
       onClick={() => action()}
       name="Leave"
-      className="w-fit text-sm *:px-2 hover:bg-red-500 md:text-base hover:dark:bg-red-600"
-      skew="high">
+      className="w-fit text-sm *:px-2 hover:bg-red-500 md:text-base hover:dark:bg-red-600">
       Leave Group
     </Button>
   );

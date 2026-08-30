@@ -28,9 +28,7 @@ function PriorityDisplay({
   const bgColor = priorityColors[priority - 1] ?? 'bg-orange-400 dark:bg-orange-600';
 
   return (
-    <span className={`flex w-6 skew-x-6 skew-y-3 items-center justify-center gap-1 font-semibold md:w-8 ${bgColor}`}>
-      {priority}
-    </span>
+    <span className={`flex w-6 items-center justify-center gap-1 font-semibold md:w-8 ${bgColor}`}>{priority}</span>
   );
 }
 

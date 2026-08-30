@@ -45,20 +45,17 @@ export default function Modal({ children }: { children: React.ReactNode }) {
 
   return createPortal(
     <div
-      className="absolute top-0 right-0 bottom-0 left-0 z-[1000] flex items-center justify-center bg-black/70"
+      className="absolute top-0 right-0 bottom-0 left-0 z-1000 flex items-center justify-center bg-black/70"
       ref={parent}
       aria-hidden="true">
       <dialog
         role="dialog"
         aria-modal="true"
         ref={dialogRef}
-        className="max-height-[500px] relative m-auto flex w-[80%] max-w-[700px] flex-col items-center justify-start bg-zinc-100 p-4 dark:bg-zinc-900"
+        className="max-height-[500px] relative m-auto flex w-[80%] max-w-175 flex-col items-center justify-start bg-zinc-100 p-4 dark:bg-zinc-900"
         onClose={onDismiss}>
         {children}
-        <Button
-          name="Close"
-          onClick={onDismiss}
-          className="absolute top-[10px] right-[10px] h-[20px] w-[20px] skew-x-0 skew-y-0 p-0 md:h-[30px] md:w-[30px]">
+        <Button name="Close" onClick={onDismiss} className="absolute top-2.5 right-2.5 h-5 w-5 p-0 md:h-7.5 md:w-7.5">
           <MdClear />
         </Button>
       </dialog>
